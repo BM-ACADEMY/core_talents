@@ -1,0 +1,29 @@
+function doPost(e) {
+  try {
+    // Replace with your actual Spreadsheet ID (not the full URL)
+    var sheet = SpreadsheetApp.openById("1POLuU-4fyup8FVQ558-CQyX9NG_wV0pZ_gVSCUb1oXo").getSheetByName("Sheet1");
+    
+    // Extract form data from e.parameter (for FormData submissions)
+    var name = e.parameter.name;
+    var email = e.parameter.email;
+    var phone = e.parameter.phone;
+    var message = e.parameter.message;
+
+    // Append the data to the sheet
+    sheet.appendRow([
+      new Date(),
+      name,
+      email,
+      phone,
+      message
+    ]);
+
+    return ContentService.createTextOutput(
+      JSON.stringify({ status: "success", message: "Form submitted successfully!" })
+    ).setMimeType(ContentService.MimeType.JSON);
+  } catch (error) {
+    return ContentService.createTextOutput(
+      JSON.stringify({ status: "error", message: error.toString() })
+    ).setMimeType(ContentService.MimeType.JSON);
+  }
+}
