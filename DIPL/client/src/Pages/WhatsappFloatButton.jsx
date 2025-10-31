@@ -1,17 +1,21 @@
 import React from "react";
-import FloatingWhatsApp from "react-floating-whatsapp"; // ✅ default import
-import Logo from "@/assets/img/1.png";
+import FloatingWhatsApp from "react-floating-whatsapp";
+import Logo from "@/assets/images/logo.png";
 
 const Whatsappfloating = () => {
   return (
-    <div>
-      {/* Floating WhatsApp Button */}
+    <div
+      style={{
+        position: "relative",
+        zIndex: 999999, // 👈 Ensures WhatsApp button stays on top of everything
+      }}
+    >
       <FloatingWhatsApp
-        phoneNumber="+919677950619" // Replace with your WhatsApp number
-        accountName="Rearline"
+        phoneNumber="+919944509441" // ✅ your WhatsApp number
+        accountName="Core Talents"
         avatar={Logo}
         statusMessage="online"
-        chatMessage="Hey! Describe your question, I'll respond Asap..."
+        chatMessage="Hey! Describe your question, I'll respond ASAP..."
         allowEsc
         allowClickAway
         // notification
