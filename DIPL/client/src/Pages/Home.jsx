@@ -1,51 +1,37 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Download } from "lucide-react";
 import { Link } from "react-router-dom";
-import Banner1 from "../assets/img/banner1.jpg";
-import Banner2 from "../assets/img/banner2.jpg";
-import Banner3 from "../assets/img/banner3.jpg";
+
+import Banner1 from "../assets/banners/handshake2.png";
+import Banner2 from "../assets/banners/banners1.png";
+import Banner3 from "../assets/banners/banners2.png";
+import BrochurePDF from "@/assets/brands/Core Talents Portfolio.pdf";   // <-- add your file here
 
 const heroData = [
   {
     id: 1,
     backgroundImage: Banner1,
-    heading: "Engineering Innovation, Delivering Excellence",
+    heading: " Hire First. Pay Later.",
     description:
-      "We design and deliver world-class automation solutions that redefine productivity, efficiency, and precision for modern industries.",
-    cta: { text: "Connect with Us" },
+      "Get pre-verified, job-ready professionals delivered within 48 hours — pay only after successful joining.",
+    cta: { text: "Get My Free Hiring Proposal", link: "/contact" },
   },
   {
     id: 2,
     backgroundImage: Banner2,
-    heading: "Automation That Empowers",
+    heading: "48 Hours to Your Next Hire.",
     description:
-      "From line automation and SPMs to robotics and AGVs, our advanced technologies help businesses operate smarter, faster, and more efficiently.",
-    cta: { text: "Connect with Us" },
+      "AI matches, human-verified professionals — delivered fast. No cost until they start. Trusted by 25+ Tamil Nadu & Pondicherry businesses.",
+    cta: { text: "Start Hiring Now", link: "/contact" },
   },
   {
     id: 3,
     backgroundImage: Banner3,
-    heading: "Integrity. Quality. Customer-Centricity.",
+    heading: "Zero Upfront. 100% Confidence.",
     description:
-      "Our values drive us to create tailor-made solutions that exceed expectations, ensuring long-term partnerships built on trust and results.",
-    cta: { text: "Connect with Us" },
-  },
-  {
-    id: 4,
-    backgroundImage: Banner1,
-    heading: "Precision at Every Step",
-    description:
-      "With unmatched craftsmanship and attention to detail, we provide durable and efficient solutions—from concept to commissioning.",
-    cta: { text: "Connect with Us" },
-  },
-  {
-    id: 5,
-    backgroundImage: Banner2,
-    heading: "Your Trusted Partner in Industrial Growth",
-    description:
-      "With a skilled team, state-of-the-art facilities, and relentless innovation, Rearline helps you stay ahead in today’s evolving industrial landscape.",
-    cta: { text: "Connect with Us" },
+      "350+ successful placements. AI-powered matching. Pay nothing until your hire joins — and thrives.",
+    cta: { text: "Brochure", download: BrochurePDF },   // <-- download prop
   },
 ];
 
@@ -54,40 +40,68 @@ const Home = () => {
   const [isPaused, setIsPaused] = useState(false);
   const timerRef = useRef(null);
 
+  /* ---------- Auto-play logic ---------- */
   const startAutoPlay = () => {
     timerRef.current = setInterval(() => {
-      setCurrentSlide((prevSlide) => (prevSlide + 1) % heroData.length);
+      setCurrentSlide((prev) => (prev + 1) % heroData.length);
     }, 6000);
   };
-
-  const pauseAutoPlay = () => {
-    if (timerRef.current) clearInterval(timerRef.current);
-  };
+  const pauseAutoPlay = () => clearInterval(timerRef.current);
 
   useEffect(() => {
     if (!isPaused) startAutoPlay();
-    return () => pauseAutoPlay();
+    return pauseAutoPlay;
   }, [isPaused]);
 
   const handleNext = () => {
     pauseAutoPlay();
-    setCurrentSlide((prevSlide) => (prevSlide + 1) % heroData.length);
+    setCurrentSlide((prev) => (prev + 1) % heroData.length);
     setIsPaused(true);
   };
-
   const handlePrev = () => {
     pauseAutoPlay();
-    setCurrentSlide(
-      (prevSlide) => (prevSlide - 1 + heroData.length) % heroData.length
-    );
+    setCurrentSlide((prev) => (prev - 1 + heroData.length) % heroData.length);
     setIsPaused(true);
   };
 
   const slide = heroData[currentSlide];
 
+  /* ---------- CTA renderer ---------- */
+  const renderCTA = () => {
+    const { cta } = slide;
+
+    /* Normal navigation button */
+    if (cta.link) {
+      return (
+        <Link
+          to={cta.link}
+          className="inline-flex items-center gap-2 px-6 py-3 rounded-md font-semibold text-lg bg-[#f0b104] hover:bg-[#daa925] transition"
+        >
+          {cta.text}
+        </Link>
+      );
+    }
+
+    /* Download button */
+    if (cta.download) {
+      return (
+        <a
+          href={cta.download}
+          download="CoreTalents_Brochure.pdf"   // optional – forces the filename
+          className="inline-flex items-center gap-2 px-6 py-3 rounded-md font-semibold text-lg bg-[#f0b104] hover:bg-[#daa925] transition"
+        >
+          <Download size={20} />
+          {cta.text}
+        </a>
+      );
+    }
+
+    return null;
+  };
+
   return (
     <div className="relative w-full h-[95vh] overflow-hidden group bg-black" id="home">
-      {/* Background image with fade transition */}
+      {/* Background image */}
       <AnimatePresence mode="popLayout">
         <motion.div
           key={slide.id}
@@ -102,7 +116,6 @@ const Home = () => {
             alt={slide.heading}
             className="w-full h-full object-cover object-top"
           />
-          {/* Black Overlay */}
           <div className="absolute inset-0 bg-black/40"></div>
         </motion.div>
       </AnimatePresence>
@@ -119,17 +132,12 @@ const Home = () => {
           <h1 className="text-3xl sm:text-5xl font-bold mb-4">{slide.heading}</h1>
           <p className="text-base sm:text-lg text-gray-200 mb-6">{slide.description}</p>
 
-          {/* Single CTA Button */}
-          <Link
-            to="/contact"
-            className="px-6 py-3 rounded-md font-semibold text-lg bg-[#f0b104] hover:bg-[#daa925] transition"
-          >
-            {slide.cta.text}
-          </Link>
+          {/* CTA – now handles both link & download */}
+          {renderCTA()}
         </motion.div>
       </div>
 
-      {/* Navigation Arrows */}
+      {/* Navigation arrows */}
       <motion.button
         className="absolute left-4 top-1/2 -translate-y-1/2 p-2 bg-black/30 rounded-full text-white cursor-pointer z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
         whileHover={{ scale: 1.2 }}

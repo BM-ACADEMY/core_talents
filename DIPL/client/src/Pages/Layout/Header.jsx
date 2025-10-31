@@ -3,6 +3,7 @@ import { Mail, Phone, X, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link, useLocation } from "react-router-dom";
 import Logo from "@/assets/img/logo.png";
+import path from "path";
 
 const Header = () => {
   const location = useLocation();
@@ -13,13 +14,13 @@ const Header = () => {
 
   const mainNavLinks = [
   { name: "Home", path: "/" },
+  { name: "About", path: "/#about" },
   {
     name: "Services",
     hasDropdown: true,
     dropdownContent: [
-      { name: "Automation", path: "/services#automation" },
-      { name: "Fixtures, Toolings & Gauges", path: "/services#fixtures,-toolings-and-gauges" },
-      { name: "Manufacturing", path: "/services#manufacturing-and-fabrication" },
+      { name: "AI Advantage", path: "/services#ai" },
+      { name: "Industries We Serve", path: "/services#industry" },
     ],
   },
   { name: "Career", path: "/career" },
@@ -57,7 +58,7 @@ const Header = () => {
           {/* Logo */}
           <div className="flex items-center space-x-4">
             <Link to="/">
-            <img src={Logo} alt="Logo" className="w-46 h-12" /></Link>
+            <img src={Logo} alt="Logo" className="w-46 h-auto" /></Link>
           </div>
 
           {/* Desktop Menu */}

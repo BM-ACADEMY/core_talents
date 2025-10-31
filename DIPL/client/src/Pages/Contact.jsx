@@ -96,9 +96,12 @@ const Contact = () => {
       rel="noopener noreferrer"
       className="text-gray-500 font-medium break-words hover:text-[#008688] transition"
     >
-      Sf.No.52/5, D.No.7/488/A, Rajeshwari Layout, Govinda Agraharam Village,
-      Begepalli Post, Hosur-635 126, Hosur Taluk, Krishnagiri District,
-      Tamil Nadu, India
+      252,2nd floor,
+      M G ROAD, 
+      KOTTAKUPPAM,
+      Vanur, 
+      Tamil Nadu 
+      605104
     </a>
   </div>
 
@@ -108,10 +111,10 @@ const Contact = () => {
       <Phone className="text-[#008688]  w-6 h-6" />
     </div>
     <a
-      href="tel:+919677950619"
+      href="tel:+919944509441"
       className="text-gray-500 font-medium hover:text-[#008688] transition"
     >
-      +91 9677950619
+      +91 9944509441
     </a>
   </div>
 
@@ -121,10 +124,10 @@ const Contact = () => {
       <Mail className="text-[#008688]  w-6 h-6" />
     </div>
     <a
-      href="mailto:sales@rearline.in"
+      href="mailto:admin@abmgroups.org"
       className="text-gray-500 font-medium break-words hover:text-[#008688] transition"
     >
-      sales@rearline.in
+      admin@abmgroups.org
     </a>
   </div>
 </div>
@@ -138,7 +141,7 @@ const Contact = () => {
         >
           <iframe
     title="Company Location"
-    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3891.065050294587!2d77.80059161095556!3d12.774287487471199!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae70c883f728a3%3A0x945404124d2f2a8d!2sQRF3%2BP77%2C%20Hosur%2C%20Tamil%20Nadu!5e0!3m2!1sen!2sin!4v1758950833672!5m2!1sen!2sin"
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15612.327991917267!2d79.81915028715821!3d11.9688246!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a53638d212031cd%3A0x4c19741920c452b4!2sCore%20Talents!5e0!3m2!1sen!2sin!4v1761825198178!5m2!1sen!2sin"
     width="100%"
     height="100%"
     style={{ border: 0 }}
@@ -151,7 +154,7 @@ const Contact = () => {
 
       {/* Enquiry Section - Full Width with Glassmorphism */}
       <div
-        className="relative mt-20 bg-fixed bg-center bg-cover"
+        className="relative mt-20 bg-fixed bg-center bg-cover" id="enquiry"
         style={{ backgroundImage: "url('https://images.unsplash.com/photo-1423666639041-f56000c27a9a?q=80&w=1174&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')" }}
       >
         <div className="absolute inset-0 bg-black/40"></div>

@@ -11,6 +11,7 @@ const CareerSection = () => {
   return (
     <section
       className="relative bg-fixed bg-center bg-cover text-white"
+      id="choose"
       style={{
         backgroundImage:
           "url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1600&auto=format&fit=crop')",
@@ -26,24 +27,16 @@ const CareerSection = () => {
       >
         <div className="max-w-4xl text-center">
           <h2 className="text-3xl md:text-5xl font-bold mb-6" data-aos="fade-down">
-            Careers <span className="text-[#f0b104]">with Us</span>
+            Why Business Trust <span className="text-[#f0b104]">Core Talents</span>
           </h2>
-          <p className="text-lg md:text-xl leading-relaxed mb-6" data-aos="fade-up" data-aos-delay="100">
-            At <span className="font-semibold">Rearline</span>, we
-            believe our greatest strength lies in our people. Our success is
-            built on the dedication, skill, and passion of a team that thrives
-            on innovation and collaboration.
+          <p className="text-lg md:text-xl leading-relaxed mb-6 " data-aos="fade-up" data-aos-delay="100">
+      <span className="font-semibold text-[#f0b104] ">Speed & Precision:</span> Businesses trust Core Talents to eliminate hiring delays with 48-hour shortlists and a 95% AI fit rate, powered by cutting-edge algorithms plus expert human vetting—delivering candidates perfectly aligned with your skills, culture, and budget.
           </p>
           <p className="text-lg md:text-xl leading-relaxed mb-6" data-aos="fade-up" data-aos-delay="200">
-            Joining us means becoming part of a forward-thinking organization
-            where ideas are valued, learning is continuous, and growth
-            opportunities are abundant.
+           <span className="font-semibold text-[#f0b104] ">Cost & Confidence:</span> Enjoy transparent pricing with no hidden fees or mark-ups—just a fixed cost per hire—and our hire first, pay later model means you only pay when your selected talent starts, removing all financial risk.
           </p>
           <p className="text-lg md:text-xl leading-relaxed mb-8" data-aos="fade-up" data-aos-delay="300">
-            Whether you are an experienced professional or a fresh graduate, we
-            provide the platform to sharpen your skills, work on cutting-edge
-            projects, and make a real impact in the world of automation and
-            precision engineering.
+          <span className="font-semibold text-[#f0b104] ">Reach & Reliability:</span>  Scale effortlessly with 25+ trusted corporate partners and access to 1.2 million pre-vetted profiles across Pan-India and GCC regions, from Tier-2/3 cities to UAE, Saudi Arabia, Qatar, Bahrain, Oman, and Kuwait—making Core Talents the smarter, faster choice for leading enterprises.
           </p>
 
           {/* CTA Button */}

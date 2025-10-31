@@ -1,68 +1,146 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { FaUsers, FaGlobeAfrica, FaBolt, FaCity } from "react-icons/fa";
+import Aboutimage from '../assets/banners/gir-large.png';
 
 const content = {
-  paragraphs: [
-    "At Rearline, we are driven by innovation, precision, and a passion for engineering excellence. Since our inception, we have been dedicated to delivering high-quality automation solutions, fixtures, tooling, gauges, and manufacturing services that empower industries to operate smarter, faster, and more efficiently.",
-    "Our expertise spans across line automation, SPMs, test rigs, vision systems, AGVs, robotics integration, and control panel programming — ensuring every project we undertake is executed with cutting-edge technology and unmatched craftsmanship.",
-    "Guided by our core principles of integrity, quality, and customer-centricity, we partner closely with our clients to understand their needs and create tailor-made solutions that deliver measurable results.",
-    "From concept to commissioning, we focus on precision, durability, and efficiency in every product and service we provide.",
-    "With a highly skilled team, state-of-the-art facilities, and a relentless commitment to innovation, Rearline stands as a trusted partner for businesses looking to enhance productivity and maintain a competitive edge in today’s fast-evolving industrial landscape."
+  fullParagraphs: [
+    "Core Talents is a next-generation AI-powered staffing and recruitment company, proudly operating as a specialized division of ABM Groups — a trusted name with over two decades of excellence in manpower solutions across South India and beyond.",
+    "We combine cutting-edge AI matching technology with human expertise to deliver pre-verified, job-ready professionals — ensuring your team gets talent that performs from Day 1.",
+    "Guided by strong principles of integrity, quality, and customer-centricity, we collaborate closely with our clients to deliver tailor-made recruitment solutions that achieve measurable success.",
+    "Our mission is to redefine talent acquisition by combining the speed of automation with the precision of human intelligence — enabling businesses to grow faster with people who shape the future."
   ],
-  image:
-    "https://images.unsplash.com/photo-1531497865144-0464ef8fb9a9?q=80&w=600&h=600&auto=format&fit=crop",
+  image: Aboutimage,
 };
 
+const countersData = [
+  { value: 25, label: "Corporate Clients", icon: <FaCity /> },
+  { value: 350, label: "Candidates Placed", icon: <FaUsers /> },
+  { value: 48, label: "Hour Hiring Cycle", icon: <FaBolt /> },
+  { value: 18, label: "States & 6 Countries", icon: <FaGlobeAfrica /> },
+];
+
 export default function About() {
+  const [expanded, setExpanded] = useState(false);
+  const [stats, setStats] = useState(
+    countersData.map((item) => ({ ...item, displayValue: 0 }))
+  );
+
   useEffect(() => {
     AOS.init({ duration: 1000, once: true });
+    runCounters();
   }, []);
 
-  return (
-    // ✅ overflow-x-hidden prevents unwanted horizontal scroll
-    <div className="relative pt-20 pb-20 overflow-x-hidden">
-      {/* ✅ responsive background glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[300px] sm:w-[400px] md:w-[600px] h-[300px] sm:h-[400px] md:h-[600px] bg-[#f0b104]/10 rounded-full blur-3xl mix-blend-multiply pointer-events-none"></div>
+  const runCounters = () => {
+    setStats(countersData.map((item) => ({ ...item, displayValue: 0 })));
 
-      <section className="max-w-7xl mx-auto px-4 font-poppins">
-        {/* Heading Section */}
+    const interval = setInterval(() => {
+      setStats((prev) => {
+        let allCompleted = true;
+
+        const updated = prev.map((stat, i) => {
+          const target = countersData[i].value;
+          if (stat.displayValue < target) {
+            allCompleted = false;
+            const increment = Math.ceil((target - stat.displayValue) / 10);
+            return { ...stat, displayValue: stat.displayValue + (increment > 0 ? increment : 1) };
+          }
+          return stat;
+        });
+
+        if (allCompleted) {
+          clearInterval(interval);
+        }
+
+        return updated;
+      });
+    }, 40); // Smooth counter
+  };
+
+  const paragraphsToShow = expanded
+    ? content.fullParagraphs
+    : content.fullParagraphs.slice(0, 2);
+
+  return (
+    <section
+      id="about"
+      className="relative py-16 md:py-20 bg-white overflow-hidden" // Removed overflow-x-hidden from parent
+    >
+      {/* Background Blur Effect - Positioned Absolutely, Won't Cause Scroll */}
+      <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[300px] sm:w-[400px] md:w-[500px] h-[300px] sm:h-[400px] md:h-[500px] bg-[#f0b104]/10 rounded-full blur-3xl pointer-events-none -z-10"></div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 font-poppins">
+        {/* Heading */}
         <div className="text-center mb-12" data-aos="zoom-in">
           <h1 className="text-3xl md:text-5xl font-extrabold text-gray-900 leading-tight">
-            About <span className="text-[#f0b104] not-italic">Us</span>
+            About <span className="text-[#f0b104]">Us</span>
           </h1>
         </div>
 
-        {/* Content Section */}
-        <div className="flex flex-col md:flex-row items-center justify-center gap-12">
-          {/* Left Image Section */}
+        {/* Main Content */}
+        <div className="grid md:grid-cols-2 gap-10 lg:gap-16 items-start">
+          {/* Image */}
           <div
-            className="relative shadow-xl rounded-2xl overflow-hidden shrink-0"
+            className="relative rounded-2xl overflow-hidden shadow-xl"
             data-aos="fade-right"
           >
             <img
-              className="max-w-lg w-full object-cover rounded-2xl"
               src={content.image}
-              alt="Main visual"
+              alt="Core Talents Team"
+              className="w-full h-auto max-h-96 md:max-h-full object-cover rounded-2xl cursor-pointer transition-transform hover:scale-105 duration-300"
+              onClick={runCounters}
+              loading="lazy"
             />
           </div>
 
-          {/* Right Content Section */}
-          <div
-            className="max-w-2xl text-base text-slate-600 text-justify"
-            data-aos="fade-left"
-          >
-            {content.paragraphs.map((para, idx) => (
-              <p
-                key={idx}
-                className={`leading-relaxed ${idx === 0 ? "mt-0" : "mt-5"}`}
-              >
-                {para}
-              </p>
-            ))}
+          {/* Text & Stats */}
+          <div className="flex flex-col justify-center" data-aos="fade-left">
+            <h2 className="text-2xl md:text-3xl font-bold text-[#f0b104] mb-6 text-left md:text-right">
+              People. Process. Performance.
+            </h2>
+
+            {/* Paragraphs */}
+            <div className="space-y-5 text-gray-700 text-justify">
+              {paragraphsToShow.map((para, idx) => (
+                <p key={idx} className="leading-relaxed">
+                  {para}
+                </p>
+              ))}
+            </div>
+
+            {/* Read More / Less */}
+            <button
+              onClick={() => setExpanded(!expanded)}
+              className="text-[#f0b104] font-semibold mt-4 hover:underline transition-all duration-300 self-start md:self-end"
+            >
+              {expanded ? "Show Less..." : "More..."}
+            </button>
+
+            {/* Stats Grid */}
+            <div className="mt-12 grid grid-cols-2 gap-6 sm:gap-8">
+              {stats.map((stat, index) => (
+                <div
+                  key={index}
+                  className="flex items-center gap-4"
+                  data-aos="fade-up"
+                  data-aos-delay={index * 100}
+                >
+                  <div className="text-black text-4xl">{stat.icon}</div>
+                  <div>
+                    <h3 className="text-4xl sm:text-5xl font-extrabold text-[#f0b104]">
+                      {stat.displayValue}+
+                    </h3>
+                    <p className="text-sm sm:text-base font-semibold text-black uppercase tracking-wider mt-1">
+                      {stat.label}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
   );
 }

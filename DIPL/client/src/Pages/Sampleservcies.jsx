@@ -5,6 +5,10 @@ import { Link } from "react-router-dom";
 import Automation from '@/assets/img/automation.jpg'
 import Fixture from '@/assets/img/fixture.jpg'
 import Manufacturing from '@/assets/img/machining_fixture.png'
+import Services1 from "../assets/images/Permanent-Staffing.jpg";
+import Services2 from "../assets/images/contractiamge.jpg";
+import Services3 from "../assets/images/HR-Outsourcing.jpg";
+import Services4 from "../assets/images/hiring.png";
 
 export default function Sampleservices() {
   useEffect(() => {
@@ -19,18 +23,23 @@ export default function Sampleservices() {
   const cards = [
     {
       id: 1,
-      title: "Automation",
-      img: Automation,
+      title: "Permanent Staffing",
+      img: Services1,
     },
     {
       id: 2,
-      title: "Fixtures, Toolings & Gauges",
-      img: Fixture,
+      title: "Contract Staffing",
+      img: Services2,
     },
     {
       id: 3,
-      title: "Manufacturing",
-      img: Manufacturing,
+      title: "HR Outsourcing",
+      img: Services3,
+    },
+     {
+      id: 4,
+      title: "Campus & Bulk Hiring",
+      img: Services4,
     },
   ];
 
@@ -48,7 +57,7 @@ export default function Sampleservices() {
         </div>
 
         {/* Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
           {cards.map((card, index) => (
             <article
               key={card.id}

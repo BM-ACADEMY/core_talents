@@ -4,34 +4,34 @@ import { motion } from "framer-motion";
 const Reviews = () => {
  const cardsData = [
     {
-      name: "Rajesh K.",
+      name: "Rohit Malhotra",
       handle: "@automotiveLeader",
       content:
-        "Rearline automation solutions transformed our production line. Zero downtime and maximum efficiency!",
+        "Core Talents delivered a shortlist of 5 senior developers in 36 hours—95% fit, zero fluff. We onboarded two on day 4 and paid only after they started. Game-changer.",
     },
     {
       name: "Sneha P.",
       handle: "@qualityFirst",
       content:
-        "Their test rigs and vision systems ensure our products meet the highest standards. Customers trust our quality more than ever.",
+        "Hire first, pay later removed all risk. Transparent fixed pricing meant no surprises, and their AI nailed our GCC remote-hire needs in Riyadh and Dubai.",
     },
     {
       name: "Vikram S.",
       handle: "@smartManufacturing",
       content:
-        "The robotics implementation simplified complex operations. Skilled manpower redeployed for innovation instead of repetitive tasks.",
+        "We needed niche data engineers in Tier-2 cities. Core Talents tapped 1.2 million profiles and placed three perfect fits in 48 hours—faster than our internal team.",
     },
     {
       name: "Anita G.",
       handle: "@precisionEngineering",
       content:
-        "Fixtures and tooling from Rearline are world-class—precision and durability that keep our shop floor running smoothly.",
+        "25+ partners can’t be wrong. From Bangalore to Bahrain, Core Talents scaled our sales team seamlessly with zero upfront cost and crystal-clear pricing.",
     },
     {
       name: "Harish R.",
       handle: "@fabricationWorks",
       content:
-        "From fabrication to control panels, their end-to-end services gave us a reliable and cost-effective manufacturing partner.",
+        "The 95% AI fit rate isn’t marketing—it’s reality. Every candidate understood our culture on day one. Core Talents is now our only staffing partner.",
     },
   ];
 

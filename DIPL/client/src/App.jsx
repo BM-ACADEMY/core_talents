@@ -10,7 +10,9 @@ import ScrollToTop from "./ScrollToTop"; // ✅ Import
 import Contact from "./Pages/Contact";
 import { Toaster } from "react-hot-toast"; // ✅ Import Toaster
 import Careermain from "./Pages/main/Careermain";
+
 import Whatsappfloating from "./Pages/WhatsappFloatButton";
+import WhyChooseUsSection from "./Pages/main/Whychoosemain"
 
 const App = () => {
   return (
@@ -19,7 +21,8 @@ const App = () => {
       <ScrollToTop /> {/* ✅ Add here */}
       <Routes>
         <Route path="/" element={<Homemainsection />} />
-        <Route path="/services" element={<ServiceSection />} />
+        <Route path="/Services" element={<ServiceSection />} />
+        <Route path="/choose" element={<WhyChooseUsSection />} />
         <Route path="/career" element={<Careermain />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
