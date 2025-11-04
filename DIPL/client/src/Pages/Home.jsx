@@ -6,13 +6,13 @@ import { Link } from "react-router-dom";
 import Banner1 from "../assets/brands/hero.jpg";
 import Banner2 from "../assets/brands/hero2.jpg";
 import Banner3 from "../assets/banners/handshake2.png";
-import BrochurePDF from "@/assets/brands/Core Talents Portfolio.pdf";   // <-- add your file here
+import BrochurePDF from "@/assets/brands/Core Talents Portfolio.pdf"; // <-- add your file here
 
 const heroData = [
   {
     id: 1,
     backgroundImage: Banner1,
-    heading: " Hire First. Pay Later.",
+    heading: "Hire First. Pay Later.",
     description:
       "Get pre-verified, job-ready professionals delivered within 48 hours — pay only after successful joining.",
     cta: { text: "Get My Free Hiring Proposal", link: "/contact" },
@@ -31,7 +31,7 @@ const heroData = [
     heading: "Zero Upfront. 100% Confidence.",
     description:
       "350+ successful placements. AI-powered matching. Pay nothing until your hire joins — and thrives.",
-    cta: { text: "Brochure", download: BrochurePDF },   // <-- download prop
+    cta: { text: "Brochure", download: BrochurePDF }, // <-- download prop
   },
 ];
 
@@ -70,27 +70,25 @@ const Home = () => {
   const renderCTA = () => {
     const { cta } = slide;
 
-    /* Normal navigation button */
     if (cta.link) {
       return (
         <Link
           to={cta.link}
-          className="inline-flex items-center gap-2 px-6 py-3 rounded-md font-semibold text-lg bg-[#f0b104] hover:bg-[#daa925] transition"
+          className="inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 rounded-md font-semibold text-base sm:text-lg bg-[#f0b104] hover:bg-[#daa925] transition w-fit"
         >
           {cta.text}
         </Link>
       );
     }
 
-    /* Download button */
     if (cta.download) {
       return (
         <a
           href={cta.download}
-          download="CoreTalents_Brochure.pdf"   // optional – forces the filename
-          className="inline-flex items-center gap-2 px-6 py-3 rounded-md font-semibold text-lg bg-[#f0b104] hover:bg-[#daa925] transition"
+          download="CoreTalents_Brochure.pdf"
+          className="inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 rounded-md font-semibold text-base sm:text-lg bg-[#f0b104] hover:bg-[#daa925] transition w-fit"
         >
-          <Download size={20} />
+          <Download size={18} className="sm:size-20" />
           {cta.text}
         </a>
       );
@@ -100,12 +98,25 @@ const Home = () => {
   };
 
   return (
-    <div className="relative w-full h-[95vh] overflow-hidden group bg-black" id="home">
+    <div
+      className="relative w-full h-[90vh] sm:h-[95vh] overflow-hidden group bg-black"
+      id="home"
+    >
+      {/* Fix side scroll globally */}
+      <style>{`
+        html, body {
+          overflow-x: hidden;
+        }
+        #home {
+          overflow-x: hidden;
+        }
+      `}</style>
+
       {/* Background image */}
       <AnimatePresence mode="popLayout">
         <motion.div
           key={slide.id}
-          className="absolute inset-0"
+          className="absolute inset-0 w-full h-full"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -114,45 +125,49 @@ const Home = () => {
           <img
             src={slide.backgroundImage}
             alt={slide.heading}
-            className="w-full h-full object-cover object-top"
+            className="w-full h-full object-cover object-top max-w-none"
           />
           <div className="absolute inset-0 bg-black/40"></div>
         </motion.div>
       </AnimatePresence>
 
       {/* Content */}
-      <div className="absolute inset-0 flex items-center justify-center text-white text-center px-4">
+      <div className="absolute inset-0 flex items-center justify-center text-white text-center px-4 sm:px-8">
         <motion.div
           key={slide.id}
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="flex flex-col items-center max-w-4xl"
+          className="flex flex-col items-center max-w-3xl sm:max-w-4xl mx-auto"
         >
-          <h1 className="text-3xl sm:text-5xl font-bold mb-4">{slide.heading}</h1>
-          <p className="text-base sm:text-lg text-gray-200 mb-6">{slide.description}</p>
+          <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 leading-snug">
+            {slide.heading}
+          </h1>
+          <p className="text-sm sm:text-base md:text-lg text-gray-200 mb-6 sm:mb-8 px-1 sm:px-0">
+            {slide.description}
+          </p>
 
-          {/* CTA – now handles both link & download */}
           {renderCTA()}
         </motion.div>
       </div>
 
       {/* Navigation arrows */}
       <motion.button
-        className="absolute left-4 top-1/2 -translate-y-1/2 p-2 bg-black/30 rounded-full text-white cursor-pointer z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-        whileHover={{ scale: 1.2 }}
+        className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 p-2 sm:p-3 bg-black/40 rounded-full text-white cursor-pointer z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         onClick={handlePrev}
       >
-        <ChevronLeft size={32} />
+        <ChevronLeft size={28} className="sm:size-32" />
       </motion.button>
+
       <motion.button
-        className="absolute right-4 top-1/2 -translate-y-1/2 p-2 bg-black/30 rounded-full text-white cursor-pointer z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-        whileHover={{ scale: 1.2 }}
+        className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 p-2 sm:p-3 bg-black/40 rounded-full text-white cursor-pointer z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         onClick={handleNext}
       >
-        <ChevronRight size={32} />
+        <ChevronRight size={28} className="sm:size-32" />
       </motion.button>
     </div>
   );
