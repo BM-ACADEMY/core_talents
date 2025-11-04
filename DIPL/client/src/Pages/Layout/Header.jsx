@@ -45,7 +45,7 @@ const Header = () => {
   const isActive = (path) => location.pathname === path;
 
   return (
-    <header className="fixed top-0 left-0 w-full z-50">
+    <header className=" top-0 left-0 w-full z-50">
       {/* Top Bar (without enquiry btn now) */}
       <div
         className="bg-[#028789] text-white text-sm transition-all duration-300"

@@ -1,5 +1,5 @@
 import React from "react";
-import { motion } from "framer-motion";
+
 
 const Reviews = () => {
  const cardsData = [
@@ -98,8 +98,8 @@ const Reviews = () => {
           <h1 className="text-3xl md:text-4xl uppercase font-semibold text-[#008687]">
           </h1>
           <h1 className="text-3xl md:text-5xl font-extrabold text-gray-900 leading-tight">
-            Our{" "}
-            <span className="text-[#f0b104] not-italic">Clients</span>
+            Success{" "}
+            <span className="text-[#f0b104] not-italic">Stories</span>
           </h1>
         
         </div>

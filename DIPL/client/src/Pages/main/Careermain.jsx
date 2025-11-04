@@ -129,7 +129,7 @@ const Careermain = () => {
       <section className="bg-gray-200 py-16 px-6 lg:px-20">
         <div className="max-w-7xl mx-auto text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900">
-            Why <span className="text-[#f0b104]">Register</span> With Us?
+            Why <span className="text-[#f0b104]">Choose</span>  Us?
           </h2>
           <p className="mt-4 text-gray-600 text-lg max-w-2xl mx-auto">
             Register with Core Talents to launch your career, get connected to top companies across India and the Gulf, and access personalized job opportunities tailored to your skills and aspirations.

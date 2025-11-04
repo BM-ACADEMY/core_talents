@@ -1,8 +1,14 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import { Helmet } from 'react-helmet';
-import { Briefcase, Users, Settings, CheckSquare, ChevronDown, Bot, BarChart, Search, Code, HardHat, Stethoscope, ShoppingCart, Truck, Factory, GraduationCap } from 'lucide-react';
-import Aiimages from "../../assets/images/ai.png"
+import { 
+  Briefcase, Users, Settings, CheckSquare, ChevronDown, 
+  Bot, BarChart, Search, Code, HardHat, Stethoscope, 
+  ShoppingCart, Truck, Factory, GraduationCap 
+} from 'lucide-react';
+import Aiimages from "../../assets/images/ai.png";
+
+// Your Brand Images
 import Brand1 from '@/assets/brands/brand1.png';
 import Brand2 from '@/assets/brands/brand2.png';
 import Brand3 from '@/assets/brands/brand3.png';
@@ -10,9 +16,8 @@ import Brand4 from '@/assets/brands/brand4.png';
 import Brand5 from '@/assets/brands/brand5.png';
 import Brand6 from '@/assets/brands/brand6.png';
 import Brand7 from '@/assets/brands/brand7.png';
-import Brand8 from '@/assets/brands/brand8.png';
-import Brand9 from '@/assets/brands/brand9.png';
-import Brand10 from '@/assets/brands/brand10.png';
+
+
 
 const Services = () => {
   const services = [
@@ -90,7 +95,7 @@ const Services = () => {
       a: 'Our recruitment team follows a detailed screening and verification process that includes skill assessment, background checks, and interview evaluations before shortlisting candidates.',
     },
     {
-      q: ' Can Core Talents handle bulk or mass hiring projects?',
+      q: 'Can Core Talents handle bulk or mass hiring projects?',
       a: 'Yes. We have a dedicated team and network to manage large-scale hiring efficiently across multiple roles and locations.',
     },
     {
@@ -99,47 +104,22 @@ const Services = () => {
     },
     {
       q: 'How long does it take to fill a position?',
-      a: 'The hiring timeline depends on the job role and requirements. However, our goal is always to deliver qualified candidates quickly without compromising on quality.',
+      a: 'The hiring timeline depends on the job role and requirements. However, our goal is always to deliver qualified candidates quickly without compromising on quality.',
     },
   ];
 
-  const companiesLogo = [
-    {
-      name: "Framer",
-      logo: Brand1,
-    },
-    {
-      name: "Huawei",
-      logo: Brand2,
-    },
-    {
-      name: "Instagram",
-      logo: Brand3
-    },
-    {
-      name: "Microsoft",
-      logo: Brand4,
-    },
-    {
-      name: "Walmart",
-      logo: Brand5,
-    }, {
-      name: "Walmart",
-      logo: Brand6,
-    },
+  // Your Brand Logos (PNG) for Marquee
+  const companyLogos = [
+    { name: "Framer", logo: Brand1 },
+    { name: "Huawei", logo: Brand2 },
+    { name: "Instagram", logo: Brand3 },
+    { name: "Microsoft", logo: Brand4 },
+    { name: "Walmart", logo: Brand5 },
+    { name: "Walmart", logo: Brand6 },
+    { name: "Walmart", logo: Brand7 },
 
-    {
-      name: "Walmart",
-      logo: Brand7,
-    },
-
-    {
-      name: "Walmart",
-      logo: Brand10,
-    },
-
+    
   ];
-
 
   return (
     <>
@@ -182,7 +162,6 @@ const Services = () => {
       <section className="py-20 bg-white" id='ai'>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            {/* Left: Text Content */}
             <div className="space-y-8">
               <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 leading-tight">
                 AI + Human Expertise = <span className="text-[#f0b104] not-italic"> Perfect Hiring Decisions</span>
@@ -190,7 +169,6 @@ const Services = () => {
               <p className="text-lg text-gray-600">
                 Our AI evaluates skills, culture fit, and retention probability to predict candidate success. Combined with recruiter validation, this reduces attrition and speeds hiring.
               </p>
-              {/* 3 Key Metric Cards */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                 <div className="bg-gray-50 rounded-xl p-5 text-center border border-gray-200 hover:border-indigo-300 transition">
                   <Bot className="w-8 h-8 text-black-600 mx-auto mb-3" />
@@ -208,23 +186,19 @@ const Services = () => {
                   <p className="text-sm text-gray-600">Higher Retention</p>
                 </div>
               </div>
-              {/* CTA Button */}
-              
               <Link
-                  to="/contact#enquiry"
-                  className="mt-auto bg-[#f0b104] hover:bg-[#c49926] text-white text-center font-medium py-2.5 px-5 rounded-lg text-sm transition shadow inline-block"
-                >
-                  Request AI Hiring Demo
-                </Link>
+                to="/contact#enquiry"
+                className="mt-auto bg-[#f0b104] hover:bg-[#c49926] text-white text-center font-medium py-2.5 px-5 rounded-lg text-sm transition shadow inline-block"
+              >
+                Request AI Hiring Demo
+              </Link>
             </div>
-            {/* Right: Image/Infographic */}
             <div className="relative">
               <img
-                src={Aiimages} // Example Unsplash image for AI dashboard
+                src={Aiimages}
                 alt="AI-powered hiring dashboard"
                 className="rounded-2xl shadow-xl w-full h-auto object-cover"
               />
-              {/* Optional: Overlay icons for visual interest */}
               <div className="absolute top-4 right-4 bg-white/80 p-3 rounded-full shadow">
                 <Bot className="w-6 h-6 text-black-600" />
               </div>
@@ -246,7 +220,6 @@ const Services = () => {
             We serve IT, Construction, Healthcare, Retail, Logistics, Manufacturing and Education.
           </h6>
 
-          {/* First Row: 4 Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
             {industries.slice(0, 4).map((industry, index) => (
               <div
@@ -260,7 +233,6 @@ const Services = () => {
             ))}
           </div>
 
-          {/* Second Row: 3 Cards, Centered */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {industries.slice(4, 7).map((industry, index) => (
               <div
@@ -276,63 +248,63 @@ const Services = () => {
 
           <div className="text-center mt-12">
             <Link
-                  to="/contact#enquiry"
-                  className="mt-auto bg-[#f0b104] hover:bg-[#c49926] text-white text-center font-medium py-2.5 px-5 rounded-lg text-sm transition shadow inline-block"
-                >
-                  Request Candidates List By Industry
-                </Link>
+              to="/contact#enquiry"
+              className="mt-auto bg-[#f0b104] hover:bg-[#c49926] text-white text-center font-medium py-2.5 px-5 rounded-lg text-sm transition shadow inline-block"
+            >
+              Request Candidates List By Industry
+            </Link>
           </div>
         </div>
       </section>
 
-      <section className="py-16 bg-black text-white">
-        <style>{`
-        .marquee-inner {
-          display: flex;
-          animation: marqueeScroll 20s linear infinite;
-        }
-
-        @keyframes marqueeScroll {
-          0% {
-            transform: translateX(30%);
+      {/* NEW: Trusted Brands Marquee – Using Your PNG Images */}
+      <section className="py-16 bg-white">
+        <style jsx>{`
+          .marquee-inner {
+            animation: marqueeScroll linear infinite;
           }
-          100% {
-            transform: translateX(-150%);
+          @keyframes marqueeScroll {
+            0% {
+              transform: translateX(0%);
+            }
+            100% {
+              transform: translateX(-50%);
+            }
           }
-        }
-      `}</style>
+        `}</style>
 
-         {/* Title */}
-      <h3 className="text-center text-slate-300 text-lg tracking-wider uppercase mb-14 font-medium relative z-10">
-        Trusted by{" "}
-        <span className="text-yellow-400 font-semibold">Leading Brands</span>
-      </h3>
-
-        {/* Logo Marquee */}
+           <h2 className="text-3xl font-bold text-center text-black mb-12">
+             Trusted by <span className="text-[#f0b104] not-italic">Leading Brands</span>
+          </h2>
         <div className="overflow-hidden w-full relative max-w-5xl mx-auto select-none">
-          {/* Left Gradient */}
-          <div className="absolute left-0 top-0 h-full w-20 z-10 pointer-events-none bg-gradient-to-r from-black to-transparent"></div>
-
+          {/* Left Fade */}
+          <div className="absolute left-0 top-0 h-full w-20 z-10 pointer-events-none bg-gradient-to-r from-white to-transparent" />
+          
           {/* Scrolling Logos */}
-          <div className="marquee-inner will-change-transform max-w-5xl mx-auto">
-            {[...companiesLogo, ...companiesLogo].map((company, index) => (
-              <img
-                key={index}
-                className="mx-14 w-40 h-40 object-contain"
-                src={company.logo}
-                alt={company.name}
-              />
-            ))}
+          <div 
+            className="marquee-inner flex will-change-transform min-w-[200%]" 
+            style={{ animationDuration: "18s" }}
+          >
+            <div className="flex items-center">
+              {[...companyLogos, ...companyLogos].map((company, index) => (
+                <img
+                  key={index}
+                  src={company.logo}
+                  alt={company.name}
+                  className="w-32 h-32 object-contain mx-8 grayscale hover:grayscale-0 transition-all duration-300"
+                  draggable={false}
+                />
+              ))}
+            </div>
           </div>
 
-          {/* Right Gradient */}
-          {/* <div className="absolute right-0 top-0 h-full w-20 md:w-40 z-10 pointer-events-none bg-gradient-to-l from-black to-transparent"></div> */}
+          {/* Right Fade */}
+          <div className="absolute right-0 top-0 h-full w-20 md:w-40 z-10 pointer-events-none bg-gradient-to-l from-white to-transparent" />
         </div>
       </section>
-
 
       {/* FAQ */}
-      <section className="py-20 bg-gray-50 ">
+      <section className="py-20 bg-gray-50">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-center text-black mb-12">
             See <span className="text-[#f0b104] not-italic">FAQ's</span>
@@ -341,7 +313,7 @@ const Services = () => {
             {faqs.map((faq, i) => (
               <details
                 key={i}
-                className="group bg-gray-50 rounded-xl p-5 cursor-pointer border border-gray-200 hover:border-[#f0b104] transition"
+                className="group bg-white rounded-xl p-5 cursor-pointer border border-gray-200 hover:border-[#f0b104] transition"
               >
                 <summary className="flex justify-between items-center font-semibold text-gray-800 list-none">
                   <span>{faq.q}</span>
