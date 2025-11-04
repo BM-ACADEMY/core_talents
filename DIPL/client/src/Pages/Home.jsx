@@ -3,9 +3,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, Download } from "lucide-react";
 import { Link } from "react-router-dom";
 
-import Banner1 from "../assets/banners/handshake2.png";
-import Banner2 from "../assets/banners/banners1.png";
-import Banner3 from "../assets/banners/banners2.png";
+import Banner1 from "../assets/brands/hero.jpg";
+import Banner2 from "../assets/brands/hero2.jpg";
+import Banner3 from "../assets/banners/handshake2.png";
 import BrochurePDF from "@/assets/brands/Core Talents Portfolio.pdf";   // <-- add your file here
 
 const heroData = [

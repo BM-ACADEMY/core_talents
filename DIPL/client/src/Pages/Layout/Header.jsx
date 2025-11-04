@@ -58,7 +58,7 @@ const Header = () => {
           {/* Logo */}
           <div className="flex items-center space-x-4">
             <Link to="/">
-            <img src={Logo} alt="Logo" className="w-46 h-auto" /></Link>
+            <img src={Logo} alt="Logo" className="w-66 h-auto" /></Link>
           </div>
 
           {/* Desktop Menu */}

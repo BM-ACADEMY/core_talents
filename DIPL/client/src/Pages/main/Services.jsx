@@ -209,9 +209,13 @@ const Services = () => {
                 </div>
               </div>
               {/* CTA Button */}
-              <button className="bg-[#f0b104] hover:bg-[#c49926] text-white font-medium py-3 px-6 rounded-lg text-base transition shadow">
-                Request AI Hiring Demo
-              </button>
+              
+              <Link
+                  to="/contact#enquiry"
+                  className="mt-auto bg-[#f0b104] hover:bg-[#c49926] text-white text-center font-medium py-2.5 px-5 rounded-lg text-sm transition shadow inline-block"
+                >
+                  Request AI Hiring Demo
+                </Link>
             </div>
             {/* Right: Image/Infographic */}
             <div className="relative">
@@ -271,9 +275,12 @@ const Services = () => {
           </div>
 
           <div className="text-center mt-12">
-            <button className="bg-[#f0b104] hover:bg-[#c49926] text-white font-medium py-3 px-6 rounded-lg text-base transition shadow">
-              Request Candidate List by Industry
-            </button>
+            <Link
+                  to="/contact#enquiry"
+                  className="mt-auto bg-[#f0b104] hover:bg-[#c49926] text-white text-center font-medium py-2.5 px-5 rounded-lg text-sm transition shadow inline-block"
+                >
+                  Request Candidates List By Industry
+                </Link>
           </div>
         </div>
       </section>
@@ -295,10 +302,11 @@ const Services = () => {
         }
       `}</style>
 
-        {/* Section Title */}
-        <h3 className="text-base text-center text-slate-400 pb-14 font-medium">
-          Trusted by leading brands, including —
-        </h3>
+         {/* Title */}
+      <h3 className="text-center text-slate-300 text-lg tracking-wider uppercase mb-14 font-medium relative z-10">
+        Trusted by{" "}
+        <span className="text-yellow-400 font-semibold">Leading Brands</span>
+      </h3>
 
         {/* Logo Marquee */}
         <div className="overflow-hidden w-full relative max-w-5xl mx-auto select-none">
