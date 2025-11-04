@@ -20,7 +20,7 @@ const Contact = () => {
   const [loading, setLoading] = useState(false);
 
   const scriptURL =
-    "https://script.google.com/macros/s/AKfycbwgW3A1bIX_65jIY0zpdAcWmACVsC5iWexW7_MgpOG9QTniBhSJbJJmygY2x-QKbAD6Fw/exec";
+    "https://script.google.com/macros/s/AKfycbyjFEjs7E7gJIk8Ld_dVb7AV8YSLSesjKuEeNvjYy45p2ninH0VCXfv5_tYfDxRBSCp1w/exec";
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -186,14 +186,22 @@ const Contact = () => {
                 className="w-full px-4 py-3 rounded-lg bg-white/30 text-white placeholder-gray-200 focus:outline-none focus:ring-2 focus:ring-[#00b3a4]"
               />
               <input
-                type="tel"
-                name="phone"
-                placeholder="Your Phone"
-                value={formData.phone}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-3 rounded-lg bg-white/30 text-white placeholder-gray-200 focus:outline-none focus:ring-2 focus:ring-[#00b3a4]"
-              />
+  type="tel"
+  name="phone"
+  placeholder="Your Phone"
+  value={formData.phone}
+  onChange={(e) => {
+    // Allow only digits and limit to 10 characters
+    const value = e.target.value.replace(/\D/g, "").slice(0, 10);
+    setFormData({ ...formData, phone: value });
+  }}
+  required
+  pattern="[0-9]{10}"
+  maxLength="10"
+  className="w-full px-4 py-3 rounded-lg bg-white/30 text-white placeholder-gray-200 
+             focus:outline-none focus:ring-2 focus:ring-[#00b3a4]"
+/>
+
               <textarea
                 name="message"
                 placeholder="Your Message"
