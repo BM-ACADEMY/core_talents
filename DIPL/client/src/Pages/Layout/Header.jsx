@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Mail, Phone, X, ChevronDown } from "lucide-react";
+import { ChevronDown, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link, useLocation } from "react-router-dom";
 import Logo from "@/assets/img/logo.png";
@@ -48,7 +48,7 @@ const Header = () => {
   const isActive = (path) => location.pathname === path;
 
   return (
-    <header className="relative sm:overflow-hidden top-0 left-0 w-auto z-50 bg-white shadow-md">
+    <header className="fixed top-0 left-0 w-full z-50 bg-white shadow-md">
       {/* Top Bar */}
       <div className="bg-[#028789] text-white text-sm transition-all duration-300">
         {/* Optional content */}
@@ -72,11 +72,7 @@ const Header = () => {
           <div className="hidden lg:flex space-x-6 items-center">
             {mainNavLinks.map((item) => (
               <div key={item.name} className="relative group">
-                {item.action === "modal" ? (
-                  <button className="bg-[#f0b104] text-white font-semibold px-3 py-1 rounded-md hover:bg-[#fdbd0de0] transition-colors duration-200">
-                    {item.name}
-                  </button>
-                ) : !item.hasDropdown ? (
+                {!item.hasDropdown ? (
                   <Link
                     to={item.path}
                     className={`font-semibold transition-colors duration-200 ${
@@ -89,23 +85,23 @@ const Header = () => {
                   </Link>
                 ) : (
                   <>
-                    <button className="flex items-center text-gray-700 font-semibold group-hover:text-[#f0b104]">
+                    <button className="flex items-center text-gray-700 font-semibold group-hover:text-[#f0b104] transition-colors">
                       {item.name}
                       <ChevronDown
                         className="ml-1 transition-transform group-hover:rotate-180"
                         size={16}
                       />
                     </button>
-                    {/* Dropdown with high z-index */}
-                    <div className="absolute left-0 top-full mt-2 bg-white border rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 w-64">
-                      <div className="p-4 space-y-2">
+                    {/* Dropdown - FIXED */}
+                    <div className="absolute left-0 top-full mt-2 w-64 bg-white border border-gray-200 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[60] pointer-events-none group-hover:pointer-events-auto translate-z-0">
+                      <div className="p-4 space-y-1">
                         {item.dropdownContent.map((sub) => (
                           <Link
                             key={sub.name}
                             to={sub.path}
-                            className="block px-1 py-2 rounded hover:bg-[#ccab5031] text-sm text-gray-800"
+                            className="block px-3 py-2.5 rounded-md hover:bg-yellow-50 text-sm font-medium text-gray-800 transition-colors"
                           >
-                            <div className="font-medium">{sub.name}</div>
+                            {sub.name}
                           </Link>
                         ))}
                       </div>
@@ -153,7 +149,7 @@ const Header = () => {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 20, stiffness: 200 }}
-              className="fixed inset-y-0 right-0 w-64 bg-white z-50 p-6 shadow-lg lg:hidden"
+              className="fixed inset-y-0 right-0 w-64 bg-white z-[70] p-6 shadow-lg lg:hidden"
             >
               <div className="flex justify-between items-center mb-6">
                 <span className="text-xl font-bold">Menu</span>
@@ -165,21 +161,12 @@ const Header = () => {
               <nav className="flex flex-col space-y-4">
                 {mainNavLinks.map((item) => (
                   <div key={item.name}>
-                    {item.action === "modal" ? (
-                      <button
-                        onClick={() => setIsOffcanvasOpen(false)}
-                        className="bg-[#028789] text-white w-full font-semibold px-3 py-2 rounded-md hover:bg-[#026b6c] transition-colors duration-200"
-                      >
-                        {item.name}
-                      </button>
-                    ) : item.hasDropdown ? (
+                    {item.hasDropdown ? (
                       <>
                         <button
                           onClick={() =>
                             setOpenMobileDropdown(
-                              openMobileDropdown === item.name
-                                ? null
-                                : item.name
+                              openMobileDropdown === item.name ? null : item.name
                             )
                           }
                           className="flex justify-between items-center w-full text-gray-700 font-semibold"
@@ -188,9 +175,7 @@ const Header = () => {
                           <ChevronDown
                             size={16}
                             className={`transition-transform ${
-                              openMobileDropdown === item.name
-                                ? "rotate-180"
-                                : ""
+                              openMobileDropdown === item.name ? "rotate-180" : ""
                             }`}
                           />
                         </button>
@@ -221,9 +206,7 @@ const Header = () => {
                       <Link
                         to={item.path}
                         className={`text-gray-700 font-semibold ${
-                          isActive(item.path)
-                            ? "text-[#f0b104]"
-                            : "hover:text-[#f0b1047c]"
+                          isActive(item.path) ? "text-[#f0b104]" : "hover:text-[#f0b1047c]"
                         }`}
                         onClick={() => setIsOffcanvasOpen(false)}
                       >

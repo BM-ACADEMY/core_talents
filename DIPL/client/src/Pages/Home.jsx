@@ -1,22 +1,12 @@
-'use client'; // Required for Next.js App Router (remove if using CRA/Vite)
-
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, Download, X } from "lucide-react";
 import { Link } from "react-router-dom";
-import emailjs from "@emailjs/browser";
 
 import Banner1 from "../assets/brands/hero.jpg";
 import Banner2 from "../assets/brands/hero2.jpg";
 import Banner3 from "../assets/banners/handshake2.png";
 import BrochurePDF from "@/assets/brands/ct.pdf";
-
-/* -------------------------------------------------
-   EMAILJS CONFIG – REPLACE WITH YOUR OWN
-   ------------------------------------------------- */
-const EMAILJS_SERVICE_ID = "your_service_id";     // e.g. service_abc123
-const EMAILJS_TEMPLATE_ID = "your_template_id";   // e.g. template_xyz789
-const EMAILJS_PUBLIC_KEY = "your_public_key";     // e.g. abc123xyz
 
 const heroData = [
   {
@@ -70,54 +60,31 @@ const BrochureModal = ({ isOpen, onClose }) => {
     setIsSubmitting(true);
 
     try {
-      // SEND FORM DATA ONLY (no PDF) to both admins
-      await emailjs.send(
-        EMAILJS_SERVICE_ID,
-        EMAILJS_TEMPLATE_ID,
-        {
-          from_name: name,
-          from_email: email,
-          purpose: purpose,
-          to_email: "admin@abmgroups.org, ceo@abmgroups.org",
-          message: `
-            New Brochure Request (India)
-            ===========================
-            Name    : ${name}
-            Email   : ${email}
-            Purpose : ${purpose}
-            Time    : ${new Date().toLocaleString("en-IN", {
-              timeZone: "Asia/Kolkata",
-              dateStyle: "medium",
-              timeStyle: "medium",
-            })}
-          `.trim(),
-        },
-        EMAILJS_PUBLIC_KEY
-      );
+      const res = await fetch("/api/send-brochure-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, purpose }),
+      });
 
-      // DOWNLOAD PDF AFTER EMAIL SUCCESS
+      if (!res.ok) throw new Error("Failed to send email");
+
       const link = document.createElement("a");
-      link.href = BrochurePDF;
-      link.download = "ct.pdf";
-      document.body.appendChild(link);
+      link.href = "/assets/brands/ct.pdf";
+      link.download = "MerchantExpo_Brochure.pdf";
       link.click();
-      document.body.removeChild(link);
 
-      alert("Thank you! Your brochure is downloading.");
+      alert("Thank you! Brochure is downloading.");
     } catch (err) {
-      console.error("Email send failed:", err);
-      alert("Failed to send request. Please try again.");
+      alert("Error: " + err.message);
     } finally {
       setIsSubmitting(false);
       onClose();
       setName("");
       setEmail("");
       setPurpose("");
-      setErrors({});
     }
   };
 
-  // Close on Escape
   useEffect(() => {
     const handleEsc = (e) => {
       if (e.key === "Escape") onClose();
@@ -153,15 +120,11 @@ const BrochureModal = ({ isOpen, onClose }) => {
             <X className="w-5 h-5" />
           </button>
 
-          <h2 className="mb-5 text-2xl font-bold text-gray-900">
-            Download Brochure
-          </h2>
+          <h2 className="mb-5 text-2xl font-bold text-gray-900">Download Brochure</h2>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block mb-1 text-sm font-medium text-gray-700">
-                Name
-              </label>
+              <label className="block mb-1 text-sm font-medium text-gray-700">Name</label>
               <input
                 type="text"
                 value={name}
@@ -171,15 +134,11 @@ const BrochureModal = ({ isOpen, onClose }) => {
                 }`}
                 disabled={isSubmitting}
               />
-              {errors.name && (
-                <p className="mt-1 text-xs text-red-600">{errors.name}</p>
-              )}
+              {errors.name && <p className="mt-1 text-xs text-red-600">{errors.name}</p>}
             </div>
 
             <div>
-              <label className="block mb-1 text-sm font-medium text-gray-700">
-                Email
-              </label>
+              <label className="block mb-1 text-sm font-medium text-gray-700">Email</label>
               <input
                 type="email"
                 value={email}
@@ -189,15 +148,11 @@ const BrochureModal = ({ isOpen, onClose }) => {
                 }`}
                 disabled={isSubmitting}
               />
-              {errors.email && (
-                <p className="mt-1 text-xs text-red-600">{errors.email}</p>
-              )}
+              {errors.email && <p className="mt-1 text-xs text-red-600">{errors.email}</p>}
             </div>
 
             <div>
-              <label className="block mb-1 text-sm font-medium text-gray-700">
-                Purpose for downloading
-              </label>
+              <label className="block mb-1 text-sm font-medium text-gray-700">Purpose for downloading</label>
               <textarea
                 rows={3}
                 value={purpose}
@@ -207,9 +162,7 @@ const BrochureModal = ({ isOpen, onClose }) => {
                 }`}
                 disabled={isSubmitting}
               />
-              {errors.purpose && (
-                <p className="mt-1 text-xs text-red-600">{errors.purpose}</p>
-              )}
+              {errors.purpose && <p className="mt-1 text-xs text-red-600">{errors.purpose}</p>}
             </div>
 
             <div className="flex gap-3 pt-2">
@@ -218,9 +171,7 @@ const BrochureModal = ({ isOpen, onClose }) => {
                 disabled={isSubmitting}
                 className="flex-1 flex items-center justify-center gap-2 px-4 py-2 text-white bg-[#f0b104] rounded-md hover:bg-[#d89a03] transition disabled:opacity-70 disabled:cursor-not-allowed"
               >
-                {isSubmitting ? (
-                  "Sending..."
-                ) : (
+                {isSubmitting ? "Sending..." : (
                   <>
                     <Download className="w-5 h-5" />
                     Download
@@ -250,12 +201,12 @@ const Home = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const timerRef = useRef(null);
 
-  // Auto-play
   const startAutoPlay = () => {
     timerRef.current = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % heroData.length);
     }, 6000);
   };
+
   const pauseAutoPlay = () => timerRef.current && clearInterval(timerRef.current);
 
   useEffect(() => {
@@ -268,6 +219,7 @@ const Home = () => {
     setCurrentSlide((prev) => (prev + 1) % heroData.length);
     setIsPaused(true);
   };
+
   const handlePrev = () => {
     pauseAutoPlay();
     setCurrentSlide((prev) => (prev - 1 + heroData.length) % heroData.length);
@@ -276,7 +228,6 @@ const Home = () => {
 
   const slide = heroData[currentSlide];
 
-  // Render CTA
   const renderCTA = () => {
     const { cta } = slide;
     const btnVariants = {
@@ -328,19 +279,10 @@ const Home = () => {
   };
 
   return (
-    <section
-      className="relative w-full h-[90vh] sm:h-[95vh] bg-black"
-      id="home"
-      aria-label="Hero Slider"
-      style={{ zIndex: 0 }}
-    >
-      {/* Background */}
+    <section className="relative w-full h-[90vh] sm:h-[95vh] bg-black z-0" id="home" aria-label="Hero Slider">
       <div className="absolute inset-0">
         <AnimatePresence mode="wait">
-          <motion.div
-            key={slide.id}
-            className="absolute inset-0 w-full h-full overflow-hidden"
-          >
+          <motion.div key={slide.id} className="absolute inset-0 w-full h-full overflow-hidden">
             <img
               src={slide.backgroundImage}
               alt={slide.heading}
@@ -352,7 +294,6 @@ const Home = () => {
         </AnimatePresence>
       </div>
 
-      {/* Content */}
       <div className="absolute inset-0 flex items-center justify-center text-white text-center px-4 sm:px-8">
         <motion.div
           key={`content-${slide.id}`}
@@ -371,7 +312,6 @@ const Home = () => {
         </motion.div>
       </div>
 
-      {/* Navigation */}
       <div className="absolute inset-y-0 left-0 flex items-center z-10 pointer-events-none">
         <motion.button
           className="pointer-events-auto p-2 sm:p-3 bg-black/40 hover:bg-black/60 rounded-full text-white ml-2 sm:ml-4 transition-colors"
@@ -396,7 +336,6 @@ const Home = () => {
         </motion.button>
       </div>
 
-      {/* Modal */}
       <BrochureModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
     </section>
   );
