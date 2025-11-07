@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Logo from "@/assets/img/logo.png";
+import Logo from '@/assets/brands/logo12.png';
 
 // ✅ Import your social media icon images
 import FacebookIcon from "@/assets/icons/facebook.png";
@@ -10,7 +10,7 @@ import LinkedinIcon from "@/assets/icons/linkedin.png";
 
 export default function Footer() {
   return (
-    <footer className="px-6 md:px-16 lg:px-24 xl:px-32 pt-10 w-full text-black bg-white border-t border-gray-200">
+    <footer className="px-6 md:px-16 lg:px-24 xl:px-32 pt-10 w-full text-white bg-black border-t border-gray-200">
       {/* Top Section */}
       <div className="flex flex-col md:flex-row justify-between w-full gap-10 border-b border-gray-300 pb-8">
         {/* Left: Logo + Description */}
@@ -21,7 +21,7 @@ export default function Footer() {
             className="w-60 h-auto object-contain"
           />
 
-          <p className="mt-5 text-sm text-gray-600 leading-relaxed">
+          <p className="mt-5 text-sm text-white-600 leading-relaxed">
             Core Talents – AI-powered recruitment with 48-hour delivery, 95% fit rate, 
             and hire-first-pay-later model. Trusted by 25+ corporates across India & GCC.
             Scale smarter, risk-free.
@@ -87,8 +87,8 @@ export default function Footer() {
         <div className="flex-1 flex items-start md:justify-end gap-20 flex-wrap">
           {/* Company Column */}
           <div>
-            <h2 className="font-semibold mb-5 text-gray-800">Company</h2>
-            <ul className="text-sm space-y-2 text-gray-600">
+            <h2 className="font-semibold mb-5 text-white-800">Company</h2>
+            <ul className="text-sm space-y-2 text-white-600">
               <li><Link to="/" className="hover:text-[#f0b104]">Home</Link></li>
               <li><Link to="/#about" className="hover:text-[#f0b104]">About</Link></li>
               <li><Link to="/services" className="hover:text-[#f0b104]">Services</Link></li>
@@ -100,8 +100,8 @@ export default function Footer() {
 
           {/* Services Column */}
           <div>
-            <h2 className="font-semibold mb-5 text-gray-800">Services</h2>
-            <ul className="text-sm space-y-2 text-gray-600">
+            <h2 className="font-semibold mb-5 text-white-800">Services</h2>
+            <ul className="text-sm space-y-2 text-white-600">
               <li><Link to="/services#ai" className="hover:text-[#f0b104]">AI Advantage</Link></li>
               <li><Link to="/services#industry" className="hover:text-[#f0b104]">Industries We Serve</Link></li>
             </ul>
@@ -111,7 +111,7 @@ export default function Footer() {
 
       {/* Bottom Copyright */}
       <div className="mt-6 text-center pb-5">
-        <p className="text-gray-500 text-sm">
+        <p className="text-white-500 text-sm">
           © {new Date().getFullYear()}{" "}
           <a
             href="https://bmtechx.in"

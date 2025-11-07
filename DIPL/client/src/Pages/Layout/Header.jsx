@@ -3,37 +3,40 @@ import { Mail, Phone, X, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link, useLocation } from "react-router-dom";
 import Logo from "@/assets/img/logo.png";
-import path from "path";
 
 const Header = () => {
   const location = useLocation();
   const [isOffcanvasOpen, setIsOffcanvasOpen] = useState(false);
   const [openMobileDropdown, setOpenMobileDropdown] = useState(null);
 
-  
-
   const mainNavLinks = [
-  { name: "Home", path: "/" },
-  { name: "About", path: "/#about" },
-  {
-    name: "Services",
-    hasDropdown: true,
-    dropdownContent: [
-      { name: "AI Advantage", path: "/services#ai" },
-      { name: "Industries We Serve", path: "/services#industry" },
-    ],
-  },
-  { name: "Career", path: "/career" },
-  { name: "Contact", path: "/contact" },
-];
-
+    { name: "Home", path: "/" },
+    { name: "About", path: "/#about" },
+    {
+      name: "Services",
+      hasDropdown: true,
+      dropdownContent: [
+        { name: "AI Advantage", path: "/services#ai" },
+        { name: "Industries We Serve", path: "/services#industry" },
+      ],
+    },
+    { name: "Career", path: "/career" },
+    { name: "Blog", path: "/" },
+    { name: "Contact", path: "/contact" },
+  ];
 
   const dropdownContentVariants = {
     hidden: { height: 0, opacity: 0, overflow: "hidden" },
     visible: {
       height: "auto",
       opacity: 1,
-      transition: { type: "tween", duration: 0.3, ease: "easeOut", when: "beforeChildren", staggerChildren: 0.05 },
+      transition: {
+        type: "tween",
+        duration: 0.3,
+        ease: "easeOut",
+        when: "beforeChildren",
+        staggerChildren: 0.05,
+      },
     },
     exit: {
       height: 0,
@@ -45,31 +48,32 @@ const Header = () => {
   const isActive = (path) => location.pathname === path;
 
   return (
-    <header className=" top-0 left-0 w-full z-50">
-      {/* Top Bar (without enquiry btn now) */}
-      <div
-        className="bg-[#028789] text-white text-sm transition-all duration-300"
-      >
+    <header className="relative sm:overflow-hidden top-0 left-0 w-auto z-50 bg-white shadow-md">
+      {/* Top Bar */}
+      <div className="bg-[#028789] text-white text-sm transition-all duration-300">
+        {/* Optional content */}
       </div>
 
       {/* Main Navbar */}
-      <nav className="bg-white shadow-md py-3">
-        <div className=" px-4 md:px-8 lg:px-16 flex justify-between items-center">
+      <nav className="py-3">
+        <div className="px-4 md:px-8 lg:px-16 flex justify-between items-center">
           {/* Logo */}
           <div className="flex items-center space-x-4">
             <Link to="/">
-            <img src={Logo} alt="Logo" className="w-66 h-auto" /></Link>
+              <img
+                src={Logo}
+                alt="Logo"
+                className="h-auto w-48 sm:w-56 md:w-40 lg:w-48"
+              />
+            </Link>
           </div>
 
           {/* Desktop Menu */}
           <div className="hidden lg:flex space-x-6 items-center">
             {mainNavLinks.map((item) => (
               <div key={item.name} className="relative group">
-                {/* Enquiry as modal trigger */}
                 {item.action === "modal" ? (
-                  <button
-                    className="bg-[#f0b104] text-white font-semibold px-3 py-1 rounded-md hover:bg-[#fdbd0de0] transition-colors duration-200"
-                  >
+                  <button className="bg-[#f0b104] text-white font-semibold px-3 py-1 rounded-md hover:bg-[#fdbd0de0] transition-colors duration-200">
                     {item.name}
                   </button>
                 ) : !item.hasDropdown ? (
@@ -87,10 +91,14 @@ const Header = () => {
                   <>
                     <button className="flex items-center text-gray-700 font-semibold group-hover:text-[#f0b104]">
                       {item.name}
-                      <ChevronDown className="ml-1 transition-transform group-hover:rotate-180" size={16} />
+                      <ChevronDown
+                        className="ml-1 transition-transform group-hover:rotate-180"
+                        size={16}
+                      />
                     </button>
-                    <div className="absolute left-0 top-full mt-2 bg-white border rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition">
-                      <div className="p-4 space-y-2 w-64">
+                    {/* Dropdown with high z-index */}
+                    <div className="absolute left-0 top-full mt-2 bg-white border rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 w-64">
+                      <div className="p-4 space-y-2">
                         {item.dropdownContent.map((sub) => (
                           <Link
                             key={sub.name}
@@ -98,7 +106,6 @@ const Header = () => {
                             className="block px-1 py-2 rounded hover:bg-[#ccab5031] text-sm text-gray-800"
                           >
                             <div className="font-medium">{sub.name}</div>
-                            {/* <div className="text-xs text-gray-500">{sub.description}</div> */}
                           </Link>
                         ))}
                       </div>
@@ -112,8 +119,18 @@ const Header = () => {
           {/* Mobile Menu Icon */}
           <div className="lg:hidden">
             <button onClick={() => setIsOffcanvasOpen(true)}>
-              <svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7" />
+              <svg
+                className="w-6 h-6 text-gray-700"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h16m-7 6h7"
+                />
               </svg>
             </button>
           </div>
@@ -125,7 +142,7 @@ const Header = () => {
         {isOffcanvasOpen && (
           <>
             <motion.div
-              className="fixed inset-0 bg-black/70 bg-opacity-50 z-40"
+              className="fixed inset-0 bg-black/70 z-40"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -140,16 +157,17 @@ const Header = () => {
             >
               <div className="flex justify-between items-center mb-6">
                 <span className="text-xl font-bold">Menu</span>
-                <X className="w-6 h-6 cursor-pointer" onClick={() => setIsOffcanvasOpen(false)} />
+                <X
+                  className="w-6 h-6 cursor-pointer"
+                  onClick={() => setIsOffcanvasOpen(false)}
+                />
               </div>
               <nav className="flex flex-col space-y-4">
                 {mainNavLinks.map((item) => (
                   <div key={item.name}>
                     {item.action === "modal" ? (
                       <button
-                        onClick={() => {
-                          setIsOffcanvasOpen(false);
-                        }}
+                        onClick={() => setIsOffcanvasOpen(false)}
                         className="bg-[#028789] text-white w-full font-semibold px-3 py-2 rounded-md hover:bg-[#026b6c] transition-colors duration-200"
                       >
                         {item.name}
@@ -159,7 +177,9 @@ const Header = () => {
                         <button
                           onClick={() =>
                             setOpenMobileDropdown(
-                              openMobileDropdown === item.name ? null : item.name
+                              openMobileDropdown === item.name
+                                ? null
+                                : item.name
                             )
                           }
                           className="flex justify-between items-center w-full text-gray-700 font-semibold"
@@ -168,7 +188,9 @@ const Header = () => {
                           <ChevronDown
                             size={16}
                             className={`transition-transform ${
-                              openMobileDropdown === item.name ? "rotate-180" : ""
+                              openMobileDropdown === item.name
+                                ? "rotate-180"
+                                : ""
                             }`}
                           />
                         </button>
@@ -199,7 +221,9 @@ const Header = () => {
                       <Link
                         to={item.path}
                         className={`text-gray-700 font-semibold ${
-                          isActive(item.path) ? "text-[#f0b104]" : "hover:text-[#f0b1047c]"
+                          isActive(item.path)
+                            ? "text-[#f0b104]"
+                            : "hover:text-[#f0b1047c]"
                         }`}
                         onClick={() => setIsOffcanvasOpen(false)}
                       >
@@ -213,8 +237,6 @@ const Header = () => {
           </>
         )}
       </AnimatePresence>
-
-      
     </header>
   );
 };

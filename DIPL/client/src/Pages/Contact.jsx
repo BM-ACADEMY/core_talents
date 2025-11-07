@@ -127,7 +127,13 @@ const Contact = () => {
       href="mailto:admin@abmgroups.org"
       className="text-gray-500 font-medium break-words hover:text-[#008688] transition"
     >
-      admin@abmgroups.org
+      admin@abmgroups.org,
+    </a>
+    <a
+      href="mailto:ceo@abmgroups.org"
+      className="text-gray-500 font-medium break-words hover:text-[#008688] transition"
+    >
+      ceo@abmgroups.org
     </a>
   </div>
 </div>

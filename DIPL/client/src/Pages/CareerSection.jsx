@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css"; // Import AOS styles
+import office from '../assets/banners/office.jpg'
+import { motion } from "framer-motion";
 
 const CareerSection = () => {
   useEffect(() => {
@@ -13,8 +15,7 @@ const CareerSection = () => {
       className="relative bg-fixed bg-center bg-cover text-white"
       id="choose"
       style={{
-        backgroundImage:
-          "url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1600&auto=format&fit=crop')",
+        backgroundImage: `url(${office})`,
       }}
     >
       {/* Overlay */}
@@ -40,14 +41,34 @@ const CareerSection = () => {
           </p>
 
           {/* CTA Button */}
-          <Link
-            to="/career"
-            className="inline-block bg-[#f0b104] hover:bg-[#c49926] text-white font-semibold px-6 py-3 rounded-full transition-all duration-300 shadow-lg"
-            data-aos="zoom-in"
-            data-aos-delay="400"
-          >
-            Explore Careers →
-          </Link>
+          <motion.div
+  animate={{ scale: [1, 1.04, 1] }}
+  transition={{ repeat: Infinity, repeatDelay: 2, duration: 1.2 }}
+>
+  <motion.div
+    initial={{ scale: 1 }}
+    whileHover={{ scale: 1.06 }}
+    whileTap={{ scale: 0.95 }}
+    transition={{ type: "spring", stiffness: 400, damping: 12 }}
+  >
+    <Link
+      to="/career"
+      className="
+        inline-flex items-center justify-center gap-2 
+        px-5 sm:px-6 py-2.5 sm:py-3 
+        rounded-md font-semibold text-base sm:text-lg 
+        text-white 
+        bg-black/30 backdrop-blur-sm 
+        border-2 border-[#f0b104] 
+        transition-all duration-300 
+        hover:bg-black/10 
+        hover:shadow-[0_0_25px_rgba(240,177,4,0.9),_0_0_40px_rgba(240,177,4,0.6)]
+      "
+    >
+      Explore Careers →
+    </Link>
+  </motion.div>
+</motion.div>
         </div>
       </div>
     </section>

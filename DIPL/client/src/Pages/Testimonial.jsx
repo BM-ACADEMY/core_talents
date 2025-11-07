@@ -68,7 +68,7 @@ const Reviews = () => {
     const bgColor = getColorFromName(card.name);
 
     return (
-      <div className="p-6 bg-white rounded-lg mx-4 shadow-lg hover:shadow-xl transition-all duration-200 w-80 shrink-0 border border-gray-200">
+      <div className="p-6 bg-orange-100  rounded-lg mx-4 shadow-lg hover:shadow-xl transition-all duration-200 w-80 shrink-0 border border-gray-200">
         <div className="flex gap-3 items-center">
           <div
             className={`${bgColor} size-12 rounded-full flex items-center justify-center text-white font-semibold`}
@@ -84,7 +84,7 @@ const Reviews = () => {
         <p className="text-gray-700 py-4 italic">"{card.content}"</p>
         <div className="flex items-center justify-between text-gray-500 text-xs border-t border-gray-100 pt-3">
           <div className="flex items-center gap-1">
-            <span>Posted on Rearline</span>
+            <span>Posted on Core Talents</span>
           </div>
         </div>
       </div>
@@ -92,7 +92,7 @@ const Reviews = () => {
   };
 
   return (
-    <section className="py-16 bg-gray-200">
+    <section className="py-16 bg-green-100">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12" data-aos="zoom-in">
           <h1 className="text-3xl md:text-4xl uppercase font-semibold text-[#008687]">

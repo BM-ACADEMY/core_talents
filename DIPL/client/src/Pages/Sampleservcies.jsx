@@ -5,9 +5,9 @@ import { Link } from "react-router-dom";
 import Automation from '@/assets/img/automation.jpg'
 import Fixture from '@/assets/img/fixture.jpg'
 import Manufacturing from '@/assets/img/machining_fixture.png'
-import Services1 from "../assets/images/Permanent-Staffing.jpg";
-import Services2 from "../assets/images/contractiamge.jpg";
-import Services3 from "../assets/images/HR-Outsourcing.jpg";
+import Services1 from "../assets/banners/permanent.jpg";
+import Services2 from "../assets/banners/handshale.jpg";
+import Services3 from "../assets/banners/hr.jpg";
 import Services4 from "../assets/images/hiring.png";
 
 export default function Sampleservices() {

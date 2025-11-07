@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { FaUsers, FaGlobeAfrica, FaBolt, FaCity } from "react-icons/fa";
-import Aboutimage from "../assets/banners/gir-large.png";
+import Aboutimage from "../assets/brands/ceo.jpg";
 
 const content = {
   fullParagraphs: [

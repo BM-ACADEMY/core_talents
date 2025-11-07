@@ -6,7 +6,7 @@ import {
   Bot, BarChart, Search, Code, HardHat, Stethoscope, 
   ShoppingCart, Truck, Factory, GraduationCap 
 } from 'lucide-react';
-import Aiimages from "../../assets/images/ai.png";
+import Aiimages from "../../assets/brands/human.jpg";
 
 // Your Brand Images
 import Brand1 from '@/assets/brands/brand1.png';

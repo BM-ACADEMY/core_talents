@@ -3,7 +3,10 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  overflow: hidden !important;
+  width: 100% !important;
 }
+
 
 .logo {
   height: 6em;
