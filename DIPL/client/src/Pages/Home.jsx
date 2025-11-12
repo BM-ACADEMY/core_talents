@@ -9,6 +9,7 @@ import Banner2 from "../assets/brands/hero2.jpg";
 import Banner3 from "../assets/banners/handshake2.png";
 import BrochurePDF from "@/assets/brands/ct.pdf";
 
+/* ==================== SLIDER DATA ==================== */
 const heroData = [
   {
     id: 1,
@@ -44,6 +45,12 @@ const BrochureModal = ({ isOpen, onClose }) => {
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // Prevent scroll when modal is open
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? "hidden" : "";
+    return () => (document.body.style.overflow = "");
+  }, [isOpen]);
+
   const validate = () => {
     const newErrors = {};
     if (!name.trim()) newErrors.name = "Name is required";
@@ -54,55 +61,42 @@ const BrochureModal = ({ isOpen, onClose }) => {
     return Object.keys(newErrors).length === 0;
   };
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  if (!validate()) return;
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!validate()) return;
 
-  setIsSubmitting(true);
+    setIsSubmitting(true);
+    try {
+      const form = new FormData();
+      form.append("name", name);
+      form.append("email", email);
+      form.append("purpose", purpose);
 
-  try {
-    const form = new FormData();
-    form.append("name", name);
-    form.append("email", email);
-    form.append("purpose", purpose);
+      await fetch(
+        "https://script.google.com/macros/s/AKfycbzvjtdmWY4p8qhftceu2NtrsnaN2BZK9SjMwUC9jTs_Zs9txVfqn2qcFtK7cV6YksTSvw/exec",
+        {
+          method: "POST",
+          mode: "no-cors",
+          body: form,
+        }
+      );
 
-    await fetch(
-      "https://script.google.com/macros/s/AKfycbzvjtdmWY4p8qhftceu2NtrsnaN2BZK9SjMwUC9jTs_Zs9txVfqn2qcFtK7cV6YksTSvw/exec",
-      {
-        method: "POST",
-        mode: "no-cors",
-        body: form,
-      }
-    );
-
-    // Success toast
-    toast.success("Form submitted successfully! Brochure will start downloading.");
-
-    // Auto-download PDF
-    const link = document.createElement("a");
-    link.href = BrochurePDF;
-    link.download = "MerchantExpo_Brochure.pdf";
-    link.click();
-  } catch (err) {
-    toast.error("Something went wrong. Please try again later.");
-    console.error(err);
-  } finally {
-    setIsSubmitting(false);
-    onClose();
-    setName("");
-    setEmail("");
-    setPurpose("");
-  }
-};
-
-
-  useEffect(() => {
-    const handleEsc = (e) => {
-      if (e.key === "Escape") onClose();
-    };
-    if (isOpen) window.addEventListener("keydown", handleEsc);
-    return () => window.removeEventListener("keydown", handleEsc);
-  }, [isOpen, onClose]);
+      toast.success("Form submitted! Brochure downloading...");
+      const link = document.createElement("a");
+      link.href = BrochurePDF;
+      link.download = "MerchantExpo_Brochure.pdf";
+      link.click();
+    } catch (err) {
+      toast.error("Something went wrong. Try again later.");
+      console.error(err);
+    } finally {
+      setIsSubmitting(false);
+      onClose();
+      setName("");
+      setEmail("");
+      setPurpose("");
+    }
+  };
 
   if (!isOpen) return null;
 
@@ -126,16 +120,20 @@ const handleSubmit = async (e) => {
             className="absolute top-3 right-3 text-gray-500 hover:text-gray-800"
             onClick={onClose}
             disabled={isSubmitting}
-            aria-label="Close modal"
           >
             <X className="w-5 h-5" />
           </button>
 
-          <h2 className="mb-5 text-2xl font-bold text-gray-900">Download Brochure</h2>
+          <h2 className="mb-5 text-2xl font-bold text-gray-900">
+            Download Brochure
+          </h2>
 
           <form onSubmit={handleSubmit} className="space-y-4">
+            {/* Name */}
             <div>
-              <label className="block mb-1 text-sm font-medium text-gray-700">Name</label>
+              <label className="block mb-1 text-sm font-medium text-gray-700">
+                Name
+              </label>
               <input
                 type="text"
                 value={name}
@@ -145,11 +143,16 @@ const handleSubmit = async (e) => {
                 }`}
                 disabled={isSubmitting}
               />
-              {errors.name && <p className="mt-1 text-xs text-red-600">{errors.name}</p>}
+              {errors.name && (
+                <p className="mt-1 text-xs text-red-600">{errors.name}</p>
+              )}
             </div>
 
+            {/* Email */}
             <div>
-              <label className="block mb-1 text-sm font-medium text-gray-700">Email</label>
+              <label className="block mb-1 text-sm font-medium text-gray-700">
+                Email
+              </label>
               <input
                 type="email"
                 value={email}
@@ -159,11 +162,16 @@ const handleSubmit = async (e) => {
                 }`}
                 disabled={isSubmitting}
               />
-              {errors.email && <p className="mt-1 text-xs text-red-600">{errors.email}</p>}
+              {errors.email && (
+                <p className="mt-1 text-xs text-red-600">{errors.email}</p>
+              )}
             </div>
 
+            {/* Purpose */}
             <div>
-              <label className="block mb-1 text-sm font-medium text-gray-700">Purpose for downloading</label>
+              <label className="block mb-1 text-sm font-medium text-gray-700">
+                Purpose for downloading
+              </label>
               <textarea
                 rows={3}
                 value={purpose}
@@ -173,21 +181,19 @@ const handleSubmit = async (e) => {
                 }`}
                 disabled={isSubmitting}
               />
-              {errors.purpose && <p className="mt-1 text-xs text-red-600">{errors.purpose}</p>}
+              {errors.purpose && (
+                <p className="mt-1 text-xs text-red-600">{errors.purpose}</p>
+              )}
             </div>
 
+            {/* Buttons */}
             <div className="flex gap-3 pt-2">
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="flex-1 flex items-center justify-center gap-2 px-4 py-2 text-white bg-[#f0b104] rounded-md hover:bg-[#d89a03] transition disabled:opacity-70 disabled:cursor-not-allowed"
+                className="flex-1 flex items-center justify-center gap-2 px-4 py-2 text-white bg-[#f0b104] rounded-md hover:bg-[#d89a03] transition disabled:opacity-70"
               >
-                {isSubmitting ? "Sending..." : (
-                  <>
-                    <Download className="w-5 h-5" />
-                    Download
-                  </>
-                )}
+                {isSubmitting ? "Sending..." : <><Download className="w-5 h-5" /> Download</>}
               </button>
               <button
                 type="button"
@@ -208,7 +214,6 @@ const handleSubmit = async (e) => {
 /* ==================== MAIN HOME COMPONENT ==================== */
 const Home = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const timerRef = useRef(null);
 
@@ -218,132 +223,117 @@ const Home = () => {
     }, 6000);
   };
 
-  const pauseAutoPlay = () => timerRef.current && clearInterval(timerRef.current);
+  const stopAutoPlay = () => {
+    if (timerRef.current) clearInterval(timerRef.current);
+  };
 
   useEffect(() => {
-    if (!isPaused) startAutoPlay();
-    return () => pauseAutoPlay();
-  }, [isPaused]);
+    startAutoPlay();
+    return stopAutoPlay;
+  }, []);
 
   const handleNext = () => {
-    pauseAutoPlay();
+    stopAutoPlay();
     setCurrentSlide((prev) => (prev + 1) % heroData.length);
-    setIsPaused(true);
+    startAutoPlay();
   };
 
   const handlePrev = () => {
-    pauseAutoPlay();
+    stopAutoPlay();
     setCurrentSlide((prev) => (prev - 1 + heroData.length) % heroData.length);
-    setIsPaused(true);
+    startAutoPlay();
   };
 
   const slide = heroData[currentSlide];
 
-  const renderCTA = () => {
-    const { cta } = slide;
-    const btnVariants = {
-      rest: { scale: 1 },
-      hover: { scale: 1.06, transition: { type: "spring", stiffness: 400, damping: 12 } },
-      tap: { scale: 0.95 },
-    };
-    const pulse = {
-      animate: { scale: [1, 1.04, 1], transition: { repeat: Infinity, repeatDelay: 2, duration: 1.2 } },
-    };
-    const commonClasses = `
-      inline-flex items-center justify-center gap-2 
-      px-5 sm:px-6 py-2.5 sm:py-3 
-      rounded-md font-semibold text-base sm:text-lg 
-      text-white 
-      bg-black/30 backdrop-blur-sm 
-      border-2 border-[#f0b104] 
-      transition-all duration-300 
-      w-fit
-      hover:bg-black/10 
-      hover:shadow-[0_0_25px_rgba(240,177,4,0.9),_0_0_40px_rgba(240,177,4,0.6)]
-    `;
-
-    if (cta.link) {
-      return (
-        <motion.div variants={pulse} animate="animate">
-          <motion.div variants={btnVariants} initial="rest" whileHover="hover" whileTap="tap">
-            <Link to={cta.link} className={commonClasses}>
-              {cta.text}
-            </Link>
-          </motion.div>
-        </motion.div>
-      );
-    }
-
-    if (cta.download) {
-      return (
-        <motion.div variants={pulse} animate="animate">
-          <motion.div variants={btnVariants} initial="rest" whileHover="hover" whileTap="tap">
-            <button onClick={() => setModalOpen(true)} className={commonClasses}>
-              <Download className="w-5 h-5 sm:w-6 sm:h-6" />
-              {cta.text}
-            </button>
-          </motion.div>
-        </motion.div>
-      );
-    }
-    return null;
+  const btnVariants = {
+    rest: { scale: 1 },
+    hover: { scale: 1.06 },
+    tap: { scale: 0.95 },
   };
 
   return (
-    <section className="relative w-full h-[90vh] sm:h-[95vh] bg-black z-0" id="home" aria-label="Hero Slider">
-      <div className="absolute inset-0">
-        <AnimatePresence mode="wait">
-          <motion.div key={slide.id} className="absolute inset-0 w-full h-full overflow-hidden">
-            <img
-              src={slide.backgroundImage}
-              alt={slide.heading}
-              className="w-full h-full object-cover object-top"
-              loading="eager"
-            />
-            <div className="absolute inset-0 bg-black/40" />
-          </motion.div>
-        </AnimatePresence>
-      </div>
+    <section
+      id="home"
+      className="relative w-full h-[90vh] sm:h-[95vh] bg-black overflow-hidden"
+      aria-label="Hero Slider"
+    >
+      {/* Background Image Transition */}
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.img
+          key={slide.id}
+          src={slide.backgroundImage}
+          alt={slide.heading}
+          className="absolute inset-0 w-full h-full object-cover object-top transform-gpu"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.8 }}
+        />
+      </AnimatePresence>
+      <div className="absolute inset-0 bg-black/40" />
 
+      {/* Hero Content */}
       <div className="absolute inset-0 flex items-center justify-center text-white text-center px-4 sm:px-8">
         <motion.div
-          key={`content-${slide.id}`}
+          key={slide.id}
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="flex flex-col items-center max-w-3xl sm:max-w-4xl mx-auto"
+          transition={{ duration: 0.8 }}
+          className="flex flex-col items-center max-w-3xl mx-auto"
         >
-          <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 leading-tight">
+          <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold mb-4 leading-tight">
             {slide.heading}
           </h1>
-          <p className="text-sm sm:text-base md:text-lg text-gray-200 mb-6 sm:mb-8 max-w-2xl">
+          <p className="text-sm sm:text-base md:text-lg text-gray-200 mb-6 max-w-2xl">
             {slide.description}
           </p>
-          {renderCTA()}
+
+          {/* CTA Button */}
+          <motion.div
+            variants={btnVariants}
+            initial="rest"
+            whileHover="hover"
+            whileTap="tap"
+          >
+            {slide.cta.link ? (
+              <Link
+                to={slide.cta.link}
+                className="inline-flex items-center gap-2 px-6 py-3 text-white bg-black/30 border-2 border-[#f0b104] rounded-md backdrop-blur-sm hover:bg-black/10 hover:shadow-[0_0_25px_rgba(240,177,4,0.8)] transition"
+              >
+                {slide.cta.text}
+              </Link>
+            ) : (
+              <button
+                onClick={() => setModalOpen(true)}
+                className="inline-flex items-center gap-2 px-6 py-3 text-white bg-black/30 border-2 border-[#f0b104] rounded-md backdrop-blur-sm hover:bg-black/10 hover:shadow-[0_0_25px_rgba(240,177,4,0.8)] transition"
+              >
+                <Download className="w-5 h-5" /> {slide.cta.text}
+              </button>
+            )}
+          </motion.div>
         </motion.div>
       </div>
 
-      <div className="absolute inset-y-0 left-0 flex items-center z-10 pointer-events-none">
+      {/* Navigation Arrows */}
+      <div className="absolute inset-y-0 left-0 flex items-center z-10">
         <motion.button
-          className="pointer-events-auto p-2 sm:p-3 bg-black/40 hover:bg-black/60 rounded-full text-white ml-2 sm:ml-4 transition-colors"
+          className="p-3 bg-black/40 hover:bg-black/60 rounded-full text-white ml-4 transition"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           onClick={handlePrev}
-          aria-label="Previous slide"
         >
-          <ChevronLeft className="w-4 h-4 sm:w-6 sm:h-6" />
+          <ChevronLeft className="w-6 h-6" />
         </motion.button>
       </div>
-
-      <div className="absolute inset-y-0 right-0 flex items-center z-10 pointer-events-none">
+      <div className="absolute inset-y-0 right-0 flex items-center z-10">
         <motion.button
-          className="pointer-events-auto p-2 sm:p-3 bg-black/40 hover:bg-black/60 rounded-full text-white mr-2 sm:mr-4 transition-colors"
+          className="p-3 bg-black/40 hover:bg-black/60 rounded-full text-white mr-4 transition"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           onClick={handleNext}
-          aria-label="Next slide"
         >
-          <ChevronRight className="w-4 h-4 sm:w-6 sm:h-6" />
+          <ChevronRight className="w-6 h-6" />
         </motion.button>
       </div>
 

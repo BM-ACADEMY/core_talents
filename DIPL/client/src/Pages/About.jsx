@@ -93,7 +93,7 @@ export default function About() {
           </div>
 
           {/* Text Content */}
-          <div className="text-gray-700" data-aos="fade-left">
+          <div className="text-gray-700" data-aos="zoom-in">
             <h2 className="text-3xl font-bold text-[#f0b104] mb-6">
               People. Process. Performance.
             </h2>

@@ -4,6 +4,7 @@ import "aos/dist/aos.css";
 import { Lightbulb, TrendingUp, Users, Star } from "lucide-react";
 import { FaLightbulb, FaGem, FaChalkboardTeacher, FaUsers } from "react-icons/fa";
 import { HiCheck } from "react-icons/hi";
+import office from '../../assets/banners/office.jpg'
 
 const whyRegisterData = [
   {
@@ -82,7 +83,7 @@ const Careermain = () => {
         className="relative bg-fixed bg-center bg-cover text-white"
         style={{
           backgroundImage:
-            "url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1600&auto=format&fit=crop')",
+            `url(${office})`,
         }}
       >
         {/* Overlay */}
