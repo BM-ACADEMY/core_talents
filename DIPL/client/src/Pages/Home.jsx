@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, Download, X } from "lucide-react";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 
 import Banner1 from "../assets/brands/hero.jpg";
 import Banner2 from "../assets/brands/hero2.jpg";
@@ -53,37 +54,47 @@ const BrochureModal = ({ isOpen, onClose }) => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!validate()) return;
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  if (!validate()) return;
 
-    setIsSubmitting(true);
+  setIsSubmitting(true);
 
-    try {
-      const res = await fetch("/api/send-brochure-email", {
+  try {
+    const form = new FormData();
+    form.append("name", name);
+    form.append("email", email);
+    form.append("purpose", purpose);
+
+    await fetch(
+      "https://script.google.com/macros/s/AKfycbzvjtdmWY4p8qhftceu2NtrsnaN2BZK9SjMwUC9jTs_Zs9txVfqn2qcFtK7cV6YksTSvw/exec",
+      {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, purpose }),
-      });
+        mode: "no-cors",
+        body: form,
+      }
+    );
 
-      if (!res.ok) throw new Error("Failed to send email");
+    // Success toast
+    toast.success("Form submitted successfully! Brochure will start downloading.");
 
-      const link = document.createElement("a");
-      link.href = "/assets/brands/ct.pdf";
-      link.download = "MerchantExpo_Brochure.pdf";
-      link.click();
+    // Auto-download PDF
+    const link = document.createElement("a");
+    link.href = BrochurePDF;
+    link.download = "MerchantExpo_Brochure.pdf";
+    link.click();
+  } catch (err) {
+    toast.error("Something went wrong. Please try again later.");
+    console.error(err);
+  } finally {
+    setIsSubmitting(false);
+    onClose();
+    setName("");
+    setEmail("");
+    setPurpose("");
+  }
+};
 
-      alert("Thank you! Brochure is downloading.");
-    } catch (err) {
-      alert("Error: " + err.message);
-    } finally {
-      setIsSubmitting(false);
-      onClose();
-      setName("");
-      setEmail("");
-      setPurpose("");
-    }
-  };
 
   useEffect(() => {
     const handleEsc = (e) => {
