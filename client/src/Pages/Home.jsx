@@ -72,6 +72,7 @@ const BrochureModal = ({ isOpen, onClose }) => {
       form.append("email", email);
       form.append("purpose", purpose);
 
+      // Submit to Google Sheets for Excel storage
       await fetch(
         "https://script.google.com/macros/s/AKfycbzvjtdmWY4p8qhftceu2NtrsnaN2BZK9SjMwUC9jTs_Zs9txVfqn2qcFtK7cV6YksTSvw/exec",
         {
@@ -81,10 +82,21 @@ const BrochureModal = ({ isOpen, onClose }) => {
         }
       );
 
+      // Submit to backend for email using VITE_BASE_URL
+      const emailResponse = await fetch(`${import.meta.env.VITE_BASE_URL}/send-email`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, purpose }),
+      });
+
+      if (!emailResponse.ok) {
+        throw new Error("Email submission failed");
+      }
+
       toast.success("Form submitted! Brochure downloading...");
       const link = document.createElement("a");
       link.href = BrochurePDF;
-      link.download = "MerchantExpo_Brochure.pdf";
+      link.download = "coretalents_companyprofile_Brochure.pdf";
       link.click();
     } catch (err) {
       toast.error("Something went wrong. Try again later.");
