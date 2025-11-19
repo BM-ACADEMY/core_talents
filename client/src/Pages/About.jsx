@@ -4,6 +4,10 @@ import "aos/dist/aos.css";
 import { FaUsers, FaGlobeAfrica, FaBolt, FaCity } from "react-icons/fa";
 import Aboutimage from "../assets/brands/ceo.jpg";
 
+// Choose one of these two imports:
+// import { Helmet } from "react-helmet";                 // original
+import { Helmet } from "react-helmet-async";           // recommended (supports SSR)
+
 const content = {
   fullParagraphs: [
     "Core Talents is a next-generation AI-powered staffing and recruitment company, proudly operating as a specialized division of ABM Groups — a trusted name with over two decades of excellence in manpower solutions across South India and beyond.",
@@ -60,82 +64,95 @@ export default function About() {
     : content.fullParagraphs.slice(0, 2);
 
   return (
-    <section id="about" className="relative py-20 bg-gradient-to-b from-white to-[#fff9ef]">
-      {/* Decorative Glow */}
-      <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[400px] h-[400px] bg-[#f0b104]/20 blur-[100px] rounded-full -z-10"></div>
+    <>
+      {/* Helmet for Title & Meta Description */}
+      <Helmet>
+        <title>About Core Talents | AI-Powered Recruitment by ABM Groups</title>
+        <meta
+          name="description"
+          content="Learn how Core Talents, a division of ABM Groups, combines AI and 20+ years of manpower experience to deliver faster, smarter recruitment across India, Chennai and Dubai."
+        />
+        {/* Optional social sharing tags */}
+        <meta property="og:title" content="About Core Talents | AI-Powered Recruitment by ABM Groups" />
+        <meta
+          property="og:description"
+          content="Learn how Core Talents, a division of ABM Groups, combines AI and 20+ years of manpower experience to deliver faster, smarter recruitment across India, Chennai and Dubai."
+        />
+        <meta property="og:type" content="website" />
+      </Helmet>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 font-poppins">
-        {/* Title */}
-        <div className="text-center mb-16" data-aos="zoom-in">
-          <h1 className="text-4xl md:text-6xl font-extrabold text-gray-900 leading-tight">
-            About <span className="text-[#f0b104]">Us</span>
-          </h1>
-          <p className="text-gray-600 mt-4 max-w-2xl mx-auto text-lg">
-            Empowering organizations through AI-driven recruitment and people excellence.
-          </p>
-        </div>
+      <section id="about" className="relative py-20 bg-gradient-to-b from-white to-[#fff9ef]">
+        {/* Decorative Glow */}
+        <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[400px] h-[400px] bg-[#f0b104]/20 blur-[100px] rounded-full -z-10"></div>
 
-        {/* Grid Layout */}
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          {/* Image Section */}
-          <div
-            className="relative rounded-3xl overflow-hidden "
-            data-aos="fade-right"
-          >
-            <div className="absolute inset-0" />
-            <img
-              src={content.image}
-              alt="Core Talents Team"
-              className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
-              loading="lazy"
-              onClick={runCounters}
-            />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 font-poppins">
+          {/* Title */}
+          <div className="text-center mb-16" data-aos="zoom-in">
+            <h1 className="text-4xl md:text-6xl font-extrabold text-gray-900 leading-tight">
+              About <span className="text-[#f0b104]">Us</span>
+            </h1>
+            <p className="text-gray-600 mt-4 max-w-2xl mx-auto text-lg">
+              Empowering organizations through AI-driven recruitment and people excellence.
+            </p>
           </div>
 
-          {/* Text Content */}
-          <div className="text-gray-700" data-aos="zoom-in">
-            <h2 className="text-3xl font-bold text-[#f0b104] mb-6">
-              People. Process. Performance.
-            </h2>
-
-            <div className="space-y-5 leading-relaxed text-justify text-gray-800">
-              {paragraphsToShow.map((para, idx) => (
-                <p key={idx}>{para}</p>
-              ))}
+          {/* Grid Layout */}
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            {/* Image Section */}
+            <div className="relative rounded-3xl overflow-hidden" data-aos="fade-right">
+              <img
+                src={content.image}
+                alt="Core Talents Team"
+                className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
+                loading="lazy"
+                onClick={runCounters}
+              />
             </div>
 
-            {/* Read More Button */}
-            <button
-              onClick={() => setExpanded(!expanded)}
-              className="mt-4 px-5 py-2 rounded-full bg-[#f0b104] text-white font-semibold hover:bg-[#d59c03] transition-all duration-300 shadow-md"
-            >
-              {expanded ? "Show Less" : "Read More"}
-            </button>
+            {/* Text Content */}
+            <div className="text-gray-700" data-aos="zoom-in">
+              <h2 className="text-3xl font-bold text-[#f0b104] mb-6">
+                People. Process. Performance.
+              </h2>
 
-            {/* Stats Section */}
-            <div className="mt-12 grid grid-cols-2 sm:grid-cols-2 gap-6">
-              {stats.map((stat, i) => (
-                <div
-                  key={i}
-                  className="bg-white/60 backdrop-blur-xl p-5 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-[#f0b104]/10 text-center"
-                  data-aos="zoom-in-up"
-                  data-aos-delay={i * 100}
-                >
-                  <div className="text-[#f0b104] text-5xl mb-2 flex justify-center">
-                    {stat.icon}
+              <div className="space-y-5 leading-relaxed text-justify text-gray-800">
+                {paragraphsToShow.map((para, idx) => (
+                  <p key={idx}>{para}</p>
+                ))}
+              </div>
+
+              <button
+                onClick={() => setExpanded(!expanded)}
+                className="mt-4 px-5 py-2 rounded-full bg-[#f0b104] text-white font-semibold hover:bg-[#d59c03] transition-all duration-300 shadow-md"
+              >
+                {expanded ? "Show Less" : "Read More"}
+              </button>
+
+              {/* Stats Section */}
+              <div className="mt-12 grid grid-cols-2 sm:grid-cols-2 gap-6">
+                {stats.map((stat, i) => (
+                  <div
+                    key={i}
+                    className="bg-white/60 backdrop-blur-xl p-5 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-[#f0b104]/10 text-center"
+                    data-aos="zoom-in-up"
+                    data-aos-delay={i * 100}
+                  >
+                    <div className="text-[#f0b104] text-5xl mb-2 flex justify-center">
+                      {stat.icon}
+                    </div>
+                    <h3 className="text-4xl font-extrabold text-gray-900">
+                      {stat.displayValue}+
+                    </h3>
+                    <p className="text-sm font-medium text-gray-600 uppercase tracking-wide mt-1">
+                      {stat.label}
+                    </p>
                   </div>
-                  <h3 className="text-4xl font-extrabold text-gray-900">
-                    {stat.displayValue}+
-                  </h3>
-                  <p className="text-sm font-medium text-gray-600 uppercase tracking-wide mt-1">
-                    {stat.label}
-                  </p>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }

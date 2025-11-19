@@ -1,8 +1,10 @@
 import React from "react";
 
+// Add React Helmet for SEO
+import { Helmet } from "react-helmet-async";
 
 const Reviews = () => {
- const cardsData = [
+  const cardsData = [
     {
       name: "Rohit Malhotra",
       handle: "@automotiveLeader",
@@ -68,7 +70,7 @@ const Reviews = () => {
     const bgColor = getColorFromName(card.name);
 
     return (
-      <div className="p-6 bg-orange-100  rounded-lg mx-4 shadow-lg hover:shadow-xl transition-all duration-200 w-80 shrink-0 border border-gray-200">
+      <div className="p-6 bg-orange-100 rounded-lg mx-4 shadow-lg hover:shadow-xl transition-all duration-200 w-80 shrink-0 border border-gray-200">
         <div className="flex gap-3 items-center">
           <div
             className={`${bgColor} size-12 rounded-full flex items-center justify-center text-white font-semibold`}
@@ -92,54 +94,66 @@ const Reviews = () => {
   };
 
   return (
-    <section className="py-16 bg-green-100">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-12" data-aos="zoom-in">
-          <h1 className="text-3xl md:text-4xl uppercase font-semibold text-[#008687]">
-          </h1>
-          <h1 className="text-3xl md:text-5xl font-extrabold text-gray-900 leading-tight">
-            Success{" "}
-            <span className="text-[#f0b104] not-italic">Stories</span>
-          </h1>
-        
-        </div>
+    <>
+      {/* SEO Title & Meta Description */}
+      <Helmet>
+        <title>Recruitment Success Stories in India, Chennai & Dubai | Core Talents</title>
+        <meta
+          name="description"
+          content="Discover how Core Talents helped companies in India, Chennai and Dubai hire faster and better with AI-powered recruitment, permanent staffing and bulk hiring solutions."
+        />
+        <meta property="og:title" content="Recruitment Success Stories in India, Chennai & Dubai | Core Talents" />
+        <meta
+          property="og:description"
+          content="Discover how Core Talents helped companies in India, Chennai and Dubai hire faster and better with AI-powered recruitment, permanent staffing and bulk hiring solutions."
+        />
+        <meta property="og:type" content="website" />
+      </Helmet>
 
-        <style>{`
-          @keyframes marqueeScroll {
-            0% { transform: translateX(0%); }
-            100% { transform: translateX(-50%); }
-          }
-          .marquee-inner {
-            animation: marqueeScroll 30s linear infinite;
-          }
-          .marquee-reverse {
-            animation-direction: reverse;
-          }
-        `}</style>
-
-        {/* First row */}
-        <div className="marquee-row w-full mx-auto overflow-hidden relative">
-
-          <div className="marquee-inner flex transform-gpu min-w-[200%] py-8">
-            {[...cardsData, ...cardsData].map((card, index) => (
-              <CreateCard key={index} card={card} />
-            ))}
+      <section className="py-16 bg-green-100">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12" data-aos="zoom-in">
+            <h1 className="text-3xl md:text-4xl uppercase font-semibold text-[#008687]">
+            </h1>
+            <h1 className="text-3xl md:text-5xl font-extrabold text-gray-900 leading-tight">
+              Success{" "}
+              <span className="text-[#f0b104] not-italic">Stories</span>
+            </h1>
           </div>
 
-        </div>
+          <style>{`
+            @keyframes marqueeScroll {
+              0% { transform: translateX(0%); }
+              100% { transform: translateX(-50%); }
+            }
+            .marquee-inner {
+              animation: marqueeScroll 30s linear infinite;
+            }
+            .marquee-reverse {
+              animation-direction: reverse;
+            }
+          `}</style>
 
-        {/* Second row */}
-        <div className="marquee-row w-full mx-auto overflow-hidden relative mt-2">
-
-          <div className="marquee-inner marquee-reverse flex transform-gpu min-w-[200%] py-8">
-            {[...cardsData, ...cardsData].map((card, index) => (
-              <CreateCard key={index} card={card} />
-            ))}
+          {/* First row */}
+          <div className="marquee-row w-full mx-auto overflow-hidden relative">
+            <div className="marquee-inner flex transform-gpu min-w-[200%] py-8">
+              {[...cardsData, ...cardsData].map((card, index) => (
+                <CreateCard key={index} card={card} />
+              ))}
+            </div>
           </div>
 
+          {/* Second row */}
+          <div className="marquee-row w-full mx-auto overflow-hidden relative mt-2">
+            <div className="marquee-inner marquee-reverse flex transform-gpu min-w-[200%] py-8">
+              {[...cardsData, ...cardsData].map((card, index) => (
+                <CreateCard key={index} card={card} />
+              ))}
+            </div>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 };
 

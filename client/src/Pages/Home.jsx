@@ -13,7 +13,7 @@ import BrochurePDF from "@/assets/brands/ct.pdf";
 /* ==================== SLIDER DATA ==================== */
 const heroData = [
   {
-    id: 1, // this is a section command
+    id: 1,
     backgroundImage: Banner1,
     heading: "Hire First. Pay Later.",
     description:
