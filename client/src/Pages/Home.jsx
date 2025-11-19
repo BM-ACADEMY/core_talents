@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, Download, X } from "lucide-react";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
+import { Helmet } from "react-helmet-async"; // ← Added for SEO
 
 import Banner1 from "../assets/brands/hero.jpg";
 import Banner2 from "../assets/brands/hero2.jpg";
@@ -123,7 +124,7 @@ const BrochureModal = ({ isOpen, onClose }) => {
       >
         <motion.div
           className="relative w-full max-w-md bg-white rounded-xl shadow-2xl p-6 sm:p-8"
-          initial={{ scale: 0.9, y: 20 }}
+          initial={{ scale: 0.9, y:  20 }}
           animate={{ scale: 1, y: 0 }}
           exit={{ scale: 0.9, y: 20 }}
           onClick={(e) => e.stopPropagation()}
@@ -265,92 +266,111 @@ const Home = () => {
   };
 
   return (
-    <section
-      id="home"
-      className="relative w-full h-[90vh] sm:h-[95vh] bg-black overflow-hidden"
-      aria-label="Hero Slider"
-    >
-      {/* Background Image Transition */}
-      <AnimatePresence mode="wait" initial={false}>
-        <motion.img
-          key={slide.id}
-          src={slide.backgroundImage}
-          alt={slide.heading}
-          className="absolute inset-0 w-full h-full object-cover object-top transform-gpu"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.8 }}
+    <>
+      {/* SEO: Title & Meta Description */}
+      <Helmet>
+        <title>Core Talents | AI Recruitment & Staffing in India, Chennai & Dubai</title>
+        <meta
+          name="description"
+          content="Core Talents is an AI-powered recruitment and staffing agency helping companies in India, Chennai and Dubai hire pre-verified, job-ready talent in 48 hours."
         />
-      </AnimatePresence>
-      <div className="absolute inset-0 bg-black/40" />
+        {/* Optional Open Graph */}
+        <meta property="og:title" content="Core Talents | AI Recruitment & Staffing in India, Chennai & Dubai" />
+        <meta
+          property="og:description"
+          content="Core Talents is an AI-powered recruitment and staffing agency helping companies in India, Chennai and Dubai hire pre-verified, job-ready talent in 48 hours."
+        />
+        <meta property="og:type Madre" content="website" />
+        <meta property="og:url" content={typeof window !== "undefined" ? window.location.href : ""} />
+      </Helmet>
 
-      {/* Hero Content */}
-      <div className="absolute inset-0 flex items-center justify-center text-white text-center px-4 sm:px-8">
-        <motion.div
-          key={slide.id}
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="flex flex-col items-center max-w-3xl mx-auto"
-        >
-          <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold mb-4 leading-tight">
-            {slide.heading}
-          </h1>
-          <p className="text-sm sm:text-base md:text-lg text-gray-200 mb-6 max-w-2xl">
-            {slide.description}
-          </p>
+      <section
+        id="home"
+        className="relative w-full h-[90vh] sm:h-[95vh] bg-black overflow-hidden"
+        aria-label="Hero Slider"
+      >
+        {/* Background Image Transition */}
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.img
+            key={slide.id}
+            src={slide.backgroundImage}
+            alt={slide.heading}
+            className="absolute inset-0 w-full h-full object-cover object-top transform-gpu"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.8 }}
+          />
+        </AnimatePresence>
+        <div className="absolute inset-0 bg-black/40" />
 
-          {/* CTA Button */}
+        {/* Hero Content */}
+        <div className="absolute inset-0 flex items-center justify-center text-white text-center px-4 sm:px-8">
           <motion.div
-            variants={btnVariants}
-            initial="rest"
-            whileHover="hover"
-            whileTap="tap"
+            key={slide.id}
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="flex flex-col items-center max-w-3xl mx-auto"
           >
-            {slide.cta.link ? (
-              <Link
-                to={slide.cta.link}
-                className="inline-flex items-center gap-2 px-6 py-3 text-white bg-black/30 border-2 border-[#f0b104] rounded-md backdrop-blur-sm hover:bg-black/10 hover:shadow-[0_0_25px_rgba(240,177,4,0.8)] transition"
-              >
-                {slide.cta.text}
-              </Link>
-            ) : (
-              <button
-                onClick={() => setModalOpen(true)}
-                className="inline-flex items-center gap-2 px-6 py-3 text-white bg-black/30 border-2 border-[#f0b104] rounded-md backdrop-blur-sm hover:bg-black/10 hover:shadow-[0_0_25px_rgba(240,177,4,0.8)] transition"
-              >
-                <Download className="w-5 h-5" /> {slide.cta.text}
-              </button>
-            )}
+            <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold mb-4 leading-tight">
+              {slide.heading}
+            </h1>
+            <p className="text-sm sm:text-base md:text-lg text-gray-200 mb-6 max-w-2xl">
+              {slide.description}
+            </p>
+
+            {/* CTA Button */}
+            <motion.div
+              variants={btnVariants}
+              initial="rest"
+              whileHover="hover"
+              whileTap="tap"
+            >
+              {slide.cta.link ? (
+                <Link
+                  to={slide.cta.link}
+                  className="inline-flex items-center gap-2 px-6 py-3 text-white bg-black/30 border-2 border-[#f0b104] rounded-md backdrop-blur-sm hover:bg-black/10 hover:shadow-[0_0_25px_rgba(240,177,4,0.8)] transition"
+                >
+                  {slide.cta.text}
+                </Link>
+              ) : (
+                <button
+                  onClick={() => setModalOpen(true)}
+                  className="inline-flex items-center gap-2 px-6 py-3 text-white bg-black/30 border-2 border-[#f0b104] rounded-md backdrop-blur-sm hover:bg-black/10 hover:shadow-[0_0_25px_rgba(240,177,4,0.8)] transition"
+                >
+                  <Download className="w-5 h-5" /> {slide.cta.text}
+                </button>
+              )}
+            </motion.div>
           </motion.div>
-        </motion.div>
-      </div>
+        </div>
 
-      {/* Navigation Arrows */}
-      <div className="absolute inset-y-0 left-0 flex items-center z-10">
-        <motion.button
-          className="p-3 bg-black/40 hover:bg-black/60 rounded-full text-white ml-4 transition"
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-          onClick={handlePrev}
-        >
-          <ChevronLeft className="w-6 h-6" />
-        </motion.button>
-      </div>
-      <div className="absolute inset-y-0 right-0 flex items-center z-10">
-        <motion.button
-          className="p-3 bg-black/40 hover:bg-black/60 rounded-full text-white mr-4 transition"
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-          onClick={handleNext}
-        >
-          <ChevronRight className="w-6 h-6" />
-        </motion.button>
-      </div>
+        {/* Navigation Arrows */}
+        <div className="absolute inset-y-0 left-0 flex items-center z-10">
+          <motion.button
+            className="p-3 bg-black/40 hover:bg-black/60 rounded-full text-white ml-4 transition"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            onClick={handlePrev}
+          >
+            <ChevronLeft className="w-6 h-6" />
+          </motion.button>
+        </div>
+        <div className="absolute inset-y-0 right-0 flex items-center z-10">
+          <motion.button
+            className="p-3 bg-black/40 hover:bg-black/60 rounded-full text-white mr-4 transition"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            onClick={handleNext}
+          >
+            <ChevronRight className="w-6 h-6" />
+          </motion.button>
+        </div>
 
-      <BrochureModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
-    </section>
+        <BrochureModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
+      </section>
+    </>
   );
 };
 
